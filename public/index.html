@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Tai len, sap xep va xem slide PDF ngay tren trinh duyet." />
+    <title>SlideShelf - Thu vien bai hoc</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" id="home-link" href="#home" aria-label="Về trang chủ SlideShelf">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M7 3.75h8.5L19 7.3v12.95H7z"/><path d="M15.5 3.75V7.3H19M4 7.25v13h11"/></svg>
+          </span>
+          <span>SlideShelf</span>
+        </a>
+
+        <button class="upload-button" id="open-upload" type="button">
+          <span aria-hidden="true">+</span> Thêm bài học
+        </button>
+
+        <button class="home-nav active" id="home-nav" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 10 8-6 8 6v9.5H14v-6h-4v6H4z"/></svg>
+          Trang chủ
+        </button>
+
+        <div class="library-heading">
+          <div>
+            <p class="eyebrow">Thư viện</p>
+            <h2>Bài học của bạn</h2>
+          </div>
+          <span class="lesson-count" id="lesson-count">0</span>
+        </div>
+
+        <label class="search-box">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+          <input id="search-input" type="search" placeholder="Tìm bài học..." autocomplete="off" />
+        </label>
+
+        <div class="lesson-list" id="lesson-list" aria-live="polite"></div>
+
+        <div class="sidebar-tip">
+          <span aria-hidden="true">↗</span>
+          <p><strong>Mẹo nhỏ</strong>Đặt tên bài học rõ ràng để tìm lại nhanh hơn.</p>
+        </div>
+      </aside>
+
+      <main class="viewer" id="viewer">
+        <header class="topbar">
+          <button class="mobile-menu" id="mobile-menu" aria-label="Mở thư viện" type="button">☰</button>
+          <div class="current-lesson">
+            <p class="eyebrow" id="current-context">Tổng quan</p>
+            <h1 id="current-title">Chọn một bài học</h1>
+          </div>
+          <a class="open-new" id="open-new" href="#" target="_blank" rel="noopener" hidden>
+            Mở tab mới <span aria-hidden="true">↗</span>
+          </a>
+        </header>
+
+        <section class="home-view" id="home-view">
+          <div class="hero-card">
+            <div class="hero-copy">
+              <p class="eyebrow">Không gian học tập</p>
+              <h2>Slide của bạn,<br />gọn trong một nơi.</h2>
+              <p>Tải lên, sắp xếp và mở lại bài giảng PDF bất cứ khi nào bạn cần.</p>
+              <button class="primary-action" id="empty-upload" type="button">Thêm bài học mới</button>
+            </div>
+            <div class="empty-illustration" aria-hidden="true">
+              <span class="page page-back"></span>
+              <span class="page page-front"><i></i><i></i><i></i></span>
+              <span class="spark spark-one">✦</span>
+              <span class="spark spark-two">✦</span>
+            </div>
+          </div>
+
+          <div class="home-section">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Thư viện của bạn</p>
+                <h2>Bài học gần đây</h2>
+              </div>
+              <span id="home-summary">0 bài học</span>
+            </div>
+            <div class="recent-grid" id="recent-grid"></div>
+          </div>
+        </section>
+
+        <div class="pdf-wrap" id="pdf-wrap" hidden>
+          <iframe id="pdf-frame" title="Nội dung slide PDF"></iframe>
+        </div>
+      </main>
+    </div>
+
+    <div class="modal-backdrop" id="upload-modal" hidden>
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button class="close-modal" id="close-upload" type="button" aria-label="Đóng">×</button>
+        <p class="eyebrow">Thêm vào thư viện</p>
+        <h2 id="modal-title">Tải slide lên</h2>
+        <p class="modal-copy">Chọn một tệp PDF, tối đa 50 MB.</p>
+
+        <form id="upload-form">
+          <label class="field-label" for="lesson-title">Tên bài học <span>Tùy chọn</span></label>
+          <input class="text-input" id="lesson-title" name="title" maxlength="120" placeholder="Ví dụ: Nhập môn Machine Learning" />
+
+          <label class="drop-zone" id="drop-zone" for="pdf-input">
+            <input id="pdf-input" name="pdf" type="file" accept="application/pdf,.pdf" required />
+            <span class="upload-icon" aria-hidden="true">↑</span>
+            <strong id="file-label">Kéo thả PDF vào đây</strong>
+            <span id="file-hint">hoặc nhấn để chọn tệp</span>
+          </label>
+
+          <p class="form-error" id="form-error" role="alert"></p>
+          <button class="submit-button" id="submit-upload" type="submit">Tải lên bài học</button>
+        </form>
+      </section>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="/app.js" defer></script>
+  </body>
+</html>
