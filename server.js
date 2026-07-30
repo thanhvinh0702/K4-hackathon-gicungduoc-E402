@@ -100,5 +100,5 @@ app.use((error, _req, res, _next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`SlideShelf dang chay tai http://localhost:${PORT}`);
+  console.log(`VLearn đang chạy tại http://localhost:${PORT}`);
 });

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Tai len, sap xep va xem slide PDF ngay tren trinh duyet." />
-    <title>SlideShelf - Thu vien bai hoc</title>
+    <title>VLearn - Thư viện bài học</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
@@ -13,11 +13,11 @@
   <body>
     <div class="app-shell">
       <aside class="sidebar">
-        <a class="brand" id="home-link" href="#home" aria-label="Về trang chủ SlideShelf">
+        <a class="brand" id="home-link" href="#home" aria-label="Về trang chủ VLearn">
           <span class="brand-mark" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M7 3.75h8.5L19 7.3v12.95H7z"/><path d="M15.5 3.75V7.3H19M4 7.25v13h11"/></svg>
           </span>
-          <span>SlideShelf</span>
+          <span>VLearn</span>
         </a>
 
         <button class="upload-button" id="open-upload" type="button">
@@ -27,6 +27,11 @@
         <button class="home-nav active" id="home-nav" type="button">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 10 8-6 8 6v9.5H14v-6h-4v6H4z"/></svg>
           Trang chủ
+        </button>
+
+        <button class="home-nav mindmap-nav" id="mindmap-nav" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="m8.2 7.3 2.7 8.3M15.8 7.3l-2.7 8.3M8.5 6h7"/></svg>
+          Mind map
         </button>
 
         <div class="library-heading">
@@ -78,6 +83,35 @@
             </div>
           </div>
 
+          <section class="ai-assistant" aria-labelledby="assistant-title">
+            <div class="assistant-intro">
+              <span class="ai-orb" aria-hidden="true">✦</span>
+              <p class="eyebrow">Trợ lý học tập</p>
+              <h2 id="assistant-title">Hỏi đáp cùng tài liệu</h2>
+              <p>Hỏi nhanh về nội dung slide. Câu trả lời sẽ dẫn bạn đến đúng bài học và đúng trang liên quan.</p>
+              <div class="suggestion-list" id="suggestion-list">
+                <button type="button">Tóm tắt nội dung bài học</button>
+                <button type="button">Token và chi phí liên quan thế nào?</button>
+                <button type="button">AI Agent khác LLM ở đâu?</button>
+              </div>
+            </div>
+
+            <div class="chat-panel">
+              <div class="chat-header">
+                <span class="bot-avatar" aria-hidden="true">AI</span>
+                <div><strong>Slide Assistant</strong><span><i></i> Sẵn sàng hỗ trợ</span></div>
+                <button id="clear-chat" type="button" title="Xóa cuộc trò chuyện">↻</button>
+              </div>
+              <div class="chat-messages" id="chat-messages" aria-live="polite"></div>
+              <form class="chat-form" id="chat-form">
+                <input id="chat-input" type="text" placeholder="Hỏi về nội dung slide..." autocomplete="off" aria-label="Câu hỏi cho trợ lý" />
+                <button type="submit" aria-label="Gửi câu hỏi">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 4 17 8-17 8 3-8zM7 12h14"/></svg>
+                </button>
+              </form>
+            </div>
+          </section>
+
           <div class="home-section">
             <div class="section-heading">
               <div>
@@ -90,8 +124,77 @@
           </div>
         </section>
 
+        <section class="mindmap-view" id="mindmap-view" hidden>
+          <div class="mindmap-hero">
+            <div>
+              <p class="eyebrow">Bản đồ tri thức</p>
+              <h2>Kết nối kiến thức giữa các bài học</h2>
+              <p>Khám phá các chủ đề, mối liên hệ và mở ngay đúng trang slide cần xem.</p>
+            </div>
+            <div class="map-stats">
+              <span><strong>2</strong>Bài học</span>
+              <span><strong>70</strong>Trang</span>
+              <span><strong>12</strong>Chủ đề</span>
+            </div>
+          </div>
+
+          <div class="mindmap-toolbar">
+            <div class="map-legend">
+              <span><i class="legend-ai"></i>AI & LLM</span>
+              <span><i class="legend-test"></i>SpotBugs</span>
+              <span><i class="legend-cross"></i>Liên kết chéo</span>
+            </div>
+            <div class="map-actions">
+              <button id="zoom-out" type="button" aria-label="Thu nhỏ">−</button>
+              <span id="zoom-value">100%</span>
+              <button id="zoom-in" type="button" aria-label="Phóng to">+</button>
+              <button id="zoom-reset" type="button">Đặt lại</button>
+            </div>
+          </div>
+
+          <div class="mindmap-canvas-wrap" id="mindmap-canvas-wrap">
+            <div class="mindmap-stage" id="mindmap-stage">
+              <svg class="mindmap-edges" id="mindmap-edges" viewBox="0 0 1280 700" aria-hidden="true"></svg>
+              <div id="mindmap-nodes"></div>
+            </div>
+          </div>
+          <p class="map-hint"><span>↗</span> Bấm vào một chủ đề để mở đúng bài học và trang slide liên quan.</p>
+        </section>
+
         <div class="pdf-wrap" id="pdf-wrap" hidden>
           <iframe id="pdf-frame" title="Nội dung slide PDF"></iframe>
+          <aside class="slide-assistant" aria-labelledby="slide-assistant-title">
+            <div class="slide-assistant-header">
+              <div class="slide-ai-mark" aria-hidden="true">✦</div>
+              <div>
+                <span>Trợ lý riêng của PDF</span>
+                <strong id="slide-assistant-title">Hỏi về bài học này</strong>
+              </div>
+              <button id="reset-slide-chat" type="button" title="Làm mới cuộc trò chuyện">↻</button>
+            </div>
+
+            <div class="slide-context-card">
+              <span class="lesson-pdf-icon" aria-hidden="true">PDF</span>
+              <div>
+                <span id="slide-page-label">Bài học · 29 trang</span>
+                <strong id="slide-topic">AI & LLM Foundation</strong>
+              </div>
+            </div>
+
+            <div class="slide-chat-messages" id="slide-chat-messages" aria-live="polite"></div>
+
+            <div class="slide-prompts" id="slide-prompts">
+              <button type="button">Tóm tắt bài học</button>
+              <button type="button">Các chủ đề chính?</button>
+            </div>
+
+            <form class="slide-chat-form" id="slide-chat-form">
+              <input id="slide-chat-input" type="text" placeholder="Hỏi về bài học này..." autocomplete="off" aria-label="Câu hỏi về bài học hiện tại" />
+              <button type="submit" aria-label="Gửi câu hỏi">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 4 17 8-17 8 3-8zM7 12h14"/></svg>
+              </button>
+            </form>
+          </aside>
         </div>
       </main>
     </div>

@@ -1,4 +1,4 @@
-# SlideShelf
+# VLearn
 
 Ứng dụng web nhỏ để tải slide PDF lên máy chủ, chọn bài học từ thư viện và xem trực tiếp trong trình duyệt.
 
