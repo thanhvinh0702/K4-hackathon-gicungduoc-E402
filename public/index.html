@@ -100,7 +100,11 @@
               <div class="chat-header">
                 <span class="bot-avatar" aria-hidden="true">AI</span>
                 <div><strong>Slide Assistant</strong><span><i></i> Sẵn sàng hỗ trợ</span></div>
-                <button id="clear-chat" type="button" title="Xóa cuộc trò chuyện">↻</button>
+                <button id="delete-conversation" type="button" title="Xóa đoạn chat hiện tại" aria-label="Xóa đoạn chat hiện tại">×</button>
+              </div>
+              <div class="conversation-toolbar">
+                <select id="conversation-select" aria-label="Chọn đoạn chat"></select>
+                <button id="new-conversation" type="button"><span aria-hidden="true">+</span> Đoạn chat mới</button>
               </div>
               <div class="chat-messages" id="chat-messages" aria-live="polite"></div>
               <form class="chat-form" id="chat-form">
@@ -224,6 +228,6 @@
     </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="/app.js?v=20260731-3" defer></script>
+    <script src="/app.js?v=20260731-4" defer></script>
   </body>
 </html>
