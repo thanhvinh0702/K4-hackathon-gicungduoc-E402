@@ -4,3 +4,7 @@ uploads/lessons.json
 !uploads/.gitkeep
 .DS_Store
 npm-debug.log*
+
+
+.agents/
+.env
