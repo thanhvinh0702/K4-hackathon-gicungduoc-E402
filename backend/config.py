@@ -21,6 +21,7 @@ class Settings:
     embedding_batch_size: int = max(1, int(os.getenv("EMBEDDING_BATCH_SIZE", "64")))
     retrieval_top_k: int = max(1, int(os.getenv("RETRIEVAL_TOP_K", "5")))
     retrieval_min_score: float = float(os.getenv("RETRIEVAL_MIN_SCORE", "0.15"))
+    agent_recursion_limit: int = max(12, int(os.getenv("AGENT_RECURSION_LIMIT", "25")))
     max_chunk_chars: int = max(500, int(os.getenv("MAX_CHUNK_CHARS", "1800")))
     chunk_overlap_chars: int = max(0, int(os.getenv("CHUNK_OVERLAP_CHARS", "250")))
     max_upload_bytes: int = 50 * 1024 * 1024

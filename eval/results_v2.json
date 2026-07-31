@@ -1,0 +1,1067 @@
+{
+  "evaluated_at": "2026-07-31T04:10:23.638706Z",
+  "status": "completed",
+  "engine": "VLearn LangChain Agentic RAG",
+  "model": "openrouter/deepseek/deepseek-v4-flash",
+  "embedding_model": "openrouter/openai/text-embedding-3-large",
+  "summary": {
+    "total_queries": 20,
+    "overall_passed": 15,
+    "pass_rate_percent": 75.0,
+    "slide_document_accuracy_percent": 95.0,
+    "page_citation_accuracy_percent": 75.0,
+    "avg_latency_ms": 25010,
+    "errors": 0
+  },
+  "category_breakdown": {
+    "AI & LLM Foundation": {
+      "total": 7,
+      "passed": 6
+    },
+    "SpotBugs Static Analysis": {
+      "total": 6,
+      "passed": 4
+    },
+    "Cross-Topic Inference": {
+      "total": 3,
+      "passed": 1
+    },
+    "Edge Cases (Out of Scope)": {
+      "total": 2,
+      "passed": 2
+    },
+    "Adversarial Wildcard": {
+      "total": 2,
+      "passed": 2
+    }
+  },
+  "details": [
+    {
+      "id": "RET-01",
+      "category": "AI & LLM Foundation",
+      "query": "Bức tranh tổng quan phân biệt giữa AI, ML, GenAI và LLM nằm ở slide nào?",
+      "expected_slide": "AI & LLM Foundation",
+      "retrieved_slide": "AI & LLM Foundation",
+      "retrieved_slide_ids": [
+        "ai-llm-foundation"
+      ],
+      "expected_pages": [
+        3
+      ],
+      "retrieved_pages": [
+        3
+      ],
+      "slide_matched": true,
+      "page_hit": true,
+      "difficulty": "Easy",
+      "response": "Bức tranh tổng quan phân biệt AI, ML, Deep Learning, GenAI và LLM nằm ở **slide 3** của bài học **d1-slide-hackathon** (chủ đề \"AI IN ACTION - Day 1\").\n\nSlide này trình bày sơ đồ \"từ rộng đến hẹp\" trong cùng một hệ:\n- **AI (Artificial Intelligence)** — chiếc ô lớn nhất: mọi hệ thống có yếu tố \"thông minh\".\n- **Machine Learning** — học từ dữ liệu thay vì viết luật tay.\n- **Deep Learning** — mạng nơ-ron nhiều tầng tự học đặc trưng.\n- **Generative AI** — sinh nội dung mới: văn bản, ảnh, code.\n- **LLM** — model nền chuyên ngôn ngữ, \"trái tim\" của làn sóng hiện nay.\n\nSlide cũng nhấn mạnh: *LLM không phải toàn bộ AI* — nhưng nó là tầng nền của gần hết trải nghiệm AI bạn dùng hôm nay.",
+      "sources": [
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 3,
+          "pageEnd": 3,
+          "label": "AI, ML, Deep Learning, GenAI, LLM — nằm ở đâu trong cùng một hệ?",
+          "score": 0.5859
+        }
+      ],
+      "provider": "openrouter/deepseek/deepseek-v4-flash",
+      "latency_ms": 11621,
+      "passed": true,
+      "reason": "Slide: \"AI & LLM Foundation\", Trang: [3] (Chính xác)",
+      "error": null
+    },
+    {
+      "id": "RET-02",
+      "category": "AI & LLM Foundation",
+      "query": "Trang nào trình bày lịch sử phát triển từ Expert System đến ChatGPT?",
+      "expected_slide": "AI & LLM Foundation",
+      "retrieved_slide": "AI & LLM Foundation",
+      "retrieved_slide_ids": [
+        "ai-llm-foundation"
+      ],
+      "expected_pages": [
+        5
+      ],
+      "retrieved_pages": [
+        9,
+        6,
+        5
+      ],
+      "slide_matched": true,
+      "page_hit": true,
+      "difficulty": "Easy",
+      "response": "Dựa trên kết quả tìm kiếm, lịch sử phát triển từ Expert System đến ChatGPT được trình bày trên các trang trong slide bài học \"d1-slide-hackathon\" (lesson ID: 6aa08fc8-a8cd-4506-8aea-2a2d8fa38002), cụ thể:\n\n- **Trang 5**: Tiêu đề \"Lịch sử AI 70 năm\" — trình bày tổng quan hành trình phát triển AI qua các giai đoạn: khai sinh, 2 lần mùa đông AI, từ model đơn lẻ sang system có khả năng hành động như agent.\n- **Trang 6**: Tiêu đề \"1980: Hệ chuyên gia (expert system)\" — trình bày giai đoạn hệ chuyên gia, khi AI chuyển sang tập trung giải tốt một miền hẹp bằng cách mã hóa tri thức chuyên gia thành luật.\n- **Trang 9**: Tiêu đề \"2022: ChatGPT\" — trình bày thời điểm ChatGPT xuất hiện như một trải nghiệm đại chúng, lần đầu tiên người dùng phổ thông có thể trực tiếp chạm vào một mô hình ngôn ngữ mạnh.\n\nNhư vậy, lịch sử từ Expert System (trang 6) đến ChatGPT (trang 9) được nằm trong dòng thời gian tổng quát ở **trang 5** (\"Lịch sử AI 70 năm\"), với các trang chi tiết theo từng mốc thời gian.",
+      "sources": [
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 9,
+          "pageEnd": 9,
+          "label": "2022: ChatGPT",
+          "score": 0.6548
+        },
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 6,
+          "pageEnd": 6,
+          "label": "1980: Hệ chuyên gia (expert system)",
+          "score": 0.5283
+        },
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 5,
+          "pageEnd": 5,
+          "label": "Lịch sử AI 70 năm",
+          "score": 0.4458
+        }
+      ],
+      "provider": "openrouter/deepseek/deepseek-v4-flash",
+      "latency_ms": 26734,
+      "passed": true,
+      "reason": "Slide: \"AI & LLM Foundation\", Trang: [9, 6, 5] (Chính xác)",
+      "error": null
+    },
+    {
+      "id": "RET-03",
+      "category": "AI & LLM Foundation",
+      "query": "Cơ chế hoạt động của Token, Context Window và Attention Mechanism được mô tả ở trang mấy?",
+      "expected_slide": "AI & LLM Foundation",
+      "retrieved_slide": "AI & LLM Foundation",
+      "retrieved_slide_ids": [
+        "ai-llm-foundation"
+      ],
+      "expected_pages": [
+        13,
+        14,
+        15
+      ],
+      "retrieved_pages": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "slide_matched": true,
+      "page_hit": true,
+      "difficulty": "Medium",
+      "response": "Cơ chế hoạt động của ba khái niệm này được mô tả trên các trang sau trong bài học \"d1-slide-hackathon\":\n\n- **Token** — **Trang 13**: Model không đọc \"từ\" nguyên vẹn mà cắt văn bản thành các mảnh nhỏ gọi là token (có từ là một mảnh, có từ vỡ ba bốn mảnh, cả dấu câu và khoảng trắng cũng là mảnh). Ví dụ: \"Hello world\" ≈ 2 token nhưng \"Xin chào\" có thể tới 3–4 token; tiếng Việt, code, JSON tốn token hơn tiếng Anh.\n\n- **Context (Window)** — **Trang 14**: Context là \"bàn làm việc có hạn\" của model — mỗi lần trả lời model chỉ nhìn được một lượng chữ có hạn. Quy đổi 128K token ≈ cuốn sách 300 trang; 1M token ≈ 4–5 cuốn sách. Context càng dài càng tốn tiền và chậm.\n\n- **Attention Mechanism** — **Trang 15**: Cơ chế attention cho phép mỗi token chủ động \"quay đầu\" nhìn lại các token trước đó, chấm điểm mức độ liên quan của từng token và khóa nghĩa theo ngữ cảnh. Đây chính là chữ **T** trong GPT (Transformer).\n\nNgoài ra, **Trang 16** giải thích cách hiểu attention để vận dụng — quản context = quản sự chú ý.",
+      "sources": [
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 13,
+          "pageEnd": 13,
+          "label": "Token: model không đọc \"từ\", model đọc mảnh chữ",
+          "score": 0.6048
+        },
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 14,
+          "pageEnd": 14,
+          "label": "Context: bàn làm việc có hạn của model",
+          "score": 0.439
+        },
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 15,
+          "pageEnd": 15,
+          "label": "Attention: mỗi từ được “nhìn sang” những từ quan trọng khác",
+          "score": 0.6748
+        },
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 16,
+          "pageEnd": 16,
+          "label": "Hiểu attention để dùng AI hiệu quả: quản context = quản sự chú ý",
+          "score": 0.438
+        }
+      ],
+      "provider": "openrouter/deepseek/deepseek-v4-flash",
+      "latency_ms": 18921,
+      "passed": true,
+      "reason": "Slide: \"AI & LLM Foundation\", Trang: [13, 14, 15, 16] (Chính xác)",
+      "error": null
+    },
+    {
+      "id": "RET-04",
+      "category": "AI & LLM Foundation",
+      "query": "Trang slide nào giải thích về AI Agent gồm 3 thành phần Tools, Memory và Action?",
+      "expected_slide": "AI & LLM Foundation",
+      "retrieved_slide": "AI & LLM Foundation",
+      "retrieved_slide_ids": [
+        "ai-llm-foundation"
+      ],
+      "expected_pages": [
+        24
+      ],
+      "retrieved_pages": [
+        24
+      ],
+      "slide_matched": true,
+      "page_hit": true,
+      "difficulty": "Easy",
+      "response": "Dựa trên dữ liệu tìm được, không có trang slide nào diễn đạt rằng \"AI Agent gồm 3 thành phần Tools, Memory và Action\".\n\nKết quả retrieval liên quan nhất cho thấy mô tả agent có **5 bộ phận** (không phải 3): **Goal + Reasoning + Tools + Memory + Action** — trong đó Memory và Tools là 2 trong các bộ phận này, còn Action là một bộ phận khác. Trang này nằm ở slide 24 (bài **d1-slide-hackathon**), với tiêu đề \"Giải phẫu một agent: 5 bộ phận là một vòng lặp\".\n\nTuy nhiên, không tìm thấy trang nào nói về mô hình \"3 thành phần Tools, Memory, Action\" như câu hỏi mô tả. Bằng chứng hiện có không đủ để xác nhận thông tin này, và tôi không tự bổ sung kiến thức ngoài tài liệu.",
+      "sources": [
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 24,
+          "pageEnd": 24,
+          "label": "Giải phẫu một agent: 5 bộ phận là một vòng lặp",
+          "score": 0.6068
+        }
+      ],
+      "provider": "openrouter/deepseek/deepseek-v4-flash",
+      "latency_ms": 21926,
+      "passed": true,
+      "reason": "Slide: \"AI & LLM Foundation\", Trang: [24] (Chính xác)",
+      "error": null
+    },
+    {
+      "id": "RET-05",
+      "category": "AI & LLM Foundation",
+      "query": "Lựa chọn phân tầng Model và công thức tính chi phí Token nằm ở trang nào?",
+      "expected_slide": "AI & LLM Foundation",
+      "retrieved_slide": "AI & LLM Foundation",
+      "retrieved_slide_ids": [
+        "ai-llm-foundation"
+      ],
+      "expected_pages": [
+        26,
+        27
+      ],
+      "retrieved_pages": [
+        26,
+        27
+      ],
+      "slide_matched": true,
+      "page_hit": true,
+      "difficulty": "Medium",
+      "response": "Cả hai nội dung đều nằm trong bài học **d1-slide-hackathon**:\n\n1. **Lựa chọn phân tầng Model** — nằm ở **trang 26** với tiêu đề *\"Chọn model theo TẦNG, không chọn theo tên\"*. Nội dung chia model thành các tầng:\n   - **Tầng 1 — Frontier đóng**: đắt nhất, chỉ dùng cho việc thật sự khó.\n   - **Tầng 2 — Rẻ mà mạnh** (mặc định thử trước): giải quyết đa số việc hằng ngày.\n   - **Tầng 3 — Self-host / siêu rẻ**: cho dữ liệu nhạy cảm hoặc chi phí quy mô lớn.\n\n2. **Công thức tính chi phí Token** — nằm ở **trang 27** với tiêu đề *\"Token có giá: vé vào rẻ, vé ra đắt gấp 3–5 lần\"*:\n   - Công thức: **Input tokens + Output tokens = Chi phí mỗi lần gọi API**.\n   - Ví dụ trên slide: input 1.150 token × $3/1M = $0.00345; output 200 token × $15/1M = $0.00300; TỔNG ≈ $0.0065.",
+      "sources": [
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 26,
+          "pageEnd": 26,
+          "label": "Chọn model theo TẦNG, không chọn theo tên",
+          "score": 0.6216
+        },
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 27,
+          "pageEnd": 27,
+          "label": "Token có giá: vé vào rẻ, vé ra đắt gấp 3–5 lần",
+          "score": 0.687
+        }
+      ],
+      "provider": "openrouter/deepseek/deepseek-v4-flash",
+      "latency_ms": 21075,
+      "passed": true,
+      "reason": "Slide: \"AI & LLM Foundation\", Trang: [26, 27] (Chính xác)",
+      "error": null
+    },
+    {
+      "id": "RET-06",
+      "category": "AI & LLM Foundation",
+      "query": "Kỹ thuật Kỹ nghệ Prompt (Prompting) và tham số Temperature nằm ở slide bao nhiêu?",
+      "expected_slide": "AI & LLM Foundation",
+      "retrieved_slide": "AI & LLM Foundation",
+      "retrieved_slide_ids": [
+        "ai-llm-foundation"
+      ],
+      "expected_pages": [
+        28,
+        29
+      ],
+      "retrieved_pages": [
+        28,
+        29,
+        17
+      ],
+      "slide_matched": true,
+      "page_hit": true,
+      "difficulty": "Easy",
+      "response": "Dựa trên bằng chứng từ tài liệu slide (bài học **d1-slide-hackathon**):\n\n- **Kỹ thuật Kỹ nghệ Prompt (Prompting / Prompt Engineering)** được đề cập trong slide **trang 28** với tiêu đề \"Giải phẫu một prompt: bốn lớp xếp chồng\" — slide này mô tả 4 lớp của một prompt (System instruction, User input, Context bổ sung, Output mong muốn) và nhấn mạnh việc viết rõ cả 4 lớp đã làm tốt một nửa \"prompt engineering\".\n\n- **Tham số Temperature** được đề cập trong slide **trang 29** với tiêu đề \"Hai núm vặn chọn từ: temperature & top_p\" — slide này giải thích temperature như \"núm vặn độ liều\" (T=0 luôn chọn từ chắc nhất, T=1 cân bằng tự nhiên, T=2 phân bố phẳng ra, đa dạng/dễ lạc đề) và lưu ý rằng temperature và top_p chỉ đổi cách chọn từ, không làm model thông minh hơn.\n\nNgoài ra, tham số temperature cũng được nhắc đến ở **trang 17** (\"Tham số (parameter)\"), nói rằng bạn chỉ có thể chỉnh context và các núm vặn lúc gọi (như temperature).",
+      "sources": [
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 28,
+          "pageEnd": 28,
+          "label": "Giải phẫu một prompt: bốn lớp xếp chồng",
+          "score": 0.5229
+        },
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 29,
+          "pageEnd": 29,
+          "label": "Hai núm vặn chọn từ: temperature & top_p",
+          "score": 0.4791
+        },
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 17,
+          "pageEnd": 17,
+          "label": "Tham số (parameter): những \"khớp nối\" model học được",
+          "score": 0.4816
+        }
+      ],
+      "provider": "openrouter/deepseek/deepseek-v4-flash",
+      "latency_ms": 17767,
+      "passed": true,
+      "reason": "Slide: \"AI & LLM Foundation\", Trang: [28, 29, 17] (Chính xác)",
+      "error": null
+    },
+    {
+      "id": "RET-07",
+      "category": "AI & LLM Foundation",
+      "query": "Sự kết hợp giữa AI Reasoning và Software Quality được đề cập ở trang nào?",
+      "expected_slide": "AI & LLM Foundation",
+      "retrieved_slide": "d2-slide-hackathon",
+      "retrieved_slide_ids": [
+        "38d24f0c-eec8-4315-9fd9-45e7100d13a5"
+      ],
+      "expected_pages": [
+        22,
+        5
+      ],
+      "retrieved_pages": [
+        16,
+        27
+      ],
+      "slide_matched": false,
+      "page_hit": false,
+      "difficulty": "Hard",
+      "response": "Tôi đã thực hiện tìm kiếm với các query khác nhau nhưng kết quả trả về chưa đủ rõ ràng để xác định chính xác trang nào trong bộ tài liệu đề cập đến **\"sự kết hợp giữa AI Reasoning và Software Quality\"** một cách trực tiếp.\n\nCác kết quả tìm kiếm gần nhất liên quan đến chủ đề này bao gồm:\n- Trang 16 của lesson **d2-slide-hackathon** đề cập đến \"Hệ thống AI = Model + Context + Planning + Tools\" — nói về kiến trúc hệ thống AI, trong đó có chia sẻ về cách AI tư duy/suy luận (Reasoning) và kết hợp với các thành phần khác, nhưng không trực tiếp nói về Software Quality.\n- Trang 27 của lesson **d2-slide-hackathon** nói về \"Problem Statement cho hệ thống AI\" với các yếu tố cốt lõi và yếu tố quyết định AI.\n\nTuy nhiên, tôi **không đủ bằng chứng từ các retrieval tools** để xác định chính xác trang nào mô tả \"sự kết hợp giữa AI Reasoning và Software Quality\". Kết quả tìm kiếm không có nội dung nào khớp trực tiếp với cụm từ này trong các slide.\n\nNếu bạn có thể làm rõ hơn ngữ cảnh (ví dụ: bài học/hệ slide cụ thể nào, hoặc ý nghĩa của \"sự kết hợp\" mà bạn đang tìm), tôi có thể tìm kiếm chính xác hơn.",
+      "sources": [
+        {
+          "lessonId": "38d24f0c-eec8-4315-9fd9-45e7100d13a5",
+          "page": 16,
+          "pageEnd": 16,
+          "label": "Hệ thống AI = Model + Context + Planning + Tools",
+          "score": 0.4128
+        },
+        {
+          "lessonId": "38d24f0c-eec8-4315-9fd9-45e7100d13a5",
+          "page": 27,
+          "pageEnd": 27,
+          "label": "Problem Statement cho hệ thống AI",
+          "score": 0.4327
+        }
+      ],
+      "provider": "openrouter/deepseek/deepseek-v4-flash",
+      "latency_ms": 26746,
+      "passed": false,
+      "reason": "Kỳ vọng \"AI & LLM Foundation\" trang [22, 5]; nhận \"d2-slide-hackathon\" trang [16, 27].",
+      "error": null
+    },
+    {
+      "id": "RET-08",
+      "category": "SpotBugs Static Analysis",
+      "query": "Slide tổng quan về công cụ phân tích tĩnh SpotBugs và Bug Pattern nằm ở trang nào?",
+      "expected_slide": "Kiểm thử với SpotBugs",
+      "retrieved_slide": "Kiểm thử với SpotBugs",
+      "retrieved_slide_ids": [
+        "spotbugs-analysis"
+      ],
+      "expected_pages": [
+        6,
+        14
+      ],
+      "retrieved_pages": [
+        6,
+        7,
+        8,
+        14,
+        3
+      ],
+      "slide_matched": true,
+      "page_hit": true,
+      "difficulty": "Easy",
+      "response": "Phần **\"Tổng quan về SpotBugs\"** nằm ở **Chương 2** (bắt đầu từ **trang 6** trong mục lục) của slide bài **Kiểm_thử___N11 (1)**.\n\nCụ thể:\n- **Trang 6**: \"2 Tổng quan về SpotBugs\" — giới thiệu SpotBugs là gì, lịch sử phát triển, và tính năng chính.\n- **Trang 7**: 2.4 Quy trình hoạt động (sử dụng Bug Patterns) và 2.5 Các loại lỗi phát hiện.\n\nVề **Bug Pattern** (mẫu lỗi), nội dung chi tiết được trình bày trong mục **3.3.2 \"Bug Detector và Bug Pattern\"** ở **trang 14** của slide.\n\nNhư vậy:\n- Tổng quan về SpotBugs: **trang 6–8**\n- Bug Detector và Bug Pattern: **trang 14**",
+      "sources": [
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 6,
+          "pageEnd": 6,
+          "label": "2 Tổng quan về SpotBugs",
+          "score": 0.7334
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 7,
+          "pageEnd": 7,
+          "label": "2.4 Quy trình hoạt động",
+          "score": 0.6849
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 8,
+          "pageEnd": 8,
+          "label": "Lỗi liên quan đến xử lý đa MWN_MISMATCHED",
+          "score": 0.6522
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 14,
+          "pageEnd": 14,
+          "label": "Bảng 2: Các hàm visit() trong SpotBugs",
+          "score": 0.7029
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 3,
+          "pageEnd": 3,
+          "label": "Mục lục",
+          "score": 0.663
+        }
+      ],
+      "provider": "openrouter/deepseek/deepseek-v4-flash",
+      "latency_ms": 11524,
+      "passed": true,
+      "reason": "Slide: \"Kiểm thử với SpotBugs\", Trang: [6, 7, 8, 14, 3] (Chính xác)",
+      "error": null
+    },
+    {
+      "id": "RET-09",
+      "category": "SpotBugs Static Analysis",
+      "query": "Trang nào hướng dẫn về JVM Bytecode, thư viện ASM và Visitor Pattern?",
+      "expected_slide": "Kiểm thử với SpotBugs",
+      "retrieved_slide": "Kiểm thử với SpotBugs",
+      "retrieved_slide_ids": [
+        "spotbugs-analysis"
+      ],
+      "expected_pages": [
+        10,
+        11,
+        13
+      ],
+      "retrieved_pages": [
+        10,
+        11,
+        12,
+        13,
+        14,
+        18
+      ],
+      "slide_matched": true,
+      "page_hit": true,
+      "difficulty": "Medium",
+      "response": "Các trang hướng dẫn về JVM Bytecode, thư viện ASM và Visitor Pattern nằm trong bài học \"Kiểm_thử___N11 (1)\" (lesson ID: a4c0891c-2b4d-4b51-b153-3cae357aec81), cụ thể:\n\n### 1. JVM Bytecode — **Trang 10, 11, 12**\n- **Trang 10**: Giới thiệu về bytecode (định dạng trung gian của mã Java do javac tạo), các khái niệm opcode, operand, và cấu trúc file .class (Magic Number 0xCAFEBABE, Constant Pool, Thông tin Class...).\n- **Trang 11**: Cấu trúc file .class (Fields, Methods, Attributes) và cách JVM thực thi bytecode qua stack frame (Operand Stack, Local Variables, Frame Data) cùng các nhóm opcode.\n- **Trang 12**: Ví dụ chi tiết về bytecode của method `simple()` được javac biên dịch và disassemble bởi `javap`, cùng phân tích từng lệnh (new, dup, ldc, invokespecial, astore_0).\n\n### 2. Thư viện ASM — **Trang 13**\nMục **3.3 Thư viện ASM**: Giới thiệu ASM là thư viện mã nguồn mở dùng để đọc, phân tích, chỉnh sửa bytecode Java, được SpotBugs sử dụng để truy cập cấu trúc các tệp .class (so với BCEL của FindBugs, ASM có hiệu suất cao hơn).\n\n### 3. Visitor Pattern trong ASM — **Trang 13**\nMục **3.3.1 Visitor Pattern trong ASM**: ASM dùng Visitor Pattern (ClassVisitor, MethodVisitor, FieldVisitor) để duyệt tuần tự từng thành phần bytecode. Quy trình gồm 4 bước: ClassReader phân tích bytecode → ClassVisitor duyệt thành phần lớp → MethodVisitor phân tích chi tiết lệnh trong method → dữ liệu từ hàm visit() chuyển đến Bug Detector.\n\nThông tin bổ sung liên quan về các hàm visit() và Bug Detector/Bug Pattern có ở **trang 14**, và về Pattern Matching dùng bytecode ở **trang 18**.",
+      "sources": [
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 10,
+          "pageEnd": 10,
+          "label": "3.2 Phân tích Bytecode",
+          "score": 0.6169
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 11,
+          "pageEnd": 11,
+          "label": "• Fields: Danh sách các biến thành viên của lớp, bao gồm tên, kiểu dữ liệu, phạm",
+          "score": 0.6221
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 12,
+          "pageEnd": 12,
+          "label": "Được javac biên dịch thành bytecode (đoạn mã dưới đây là phần bytecode của method",
+          "score": 0.6021
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 13,
+          "pageEnd": 13,
+          "label": "• Độc lập với mã nguồn: Bytecode phản ánh chính xác hành vi runtime, không",
+          "score": 0.6023
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 13,
+          "pageEnd": 13,
+          "label": "• Độc lập với mã nguồn: Bytecode phản ánh chính xác hành vi runtime, không",
+          "score": 0.6465
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 14,
+          "pageEnd": 14,
+          "label": "Bảng 2: Các hàm visit() trong SpotBugs",
+          "score": 0.477
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 18,
+          "pageEnd": 18,
+          "label": "4.4.1 Pattern matching",
+          "score": 0.4856
+        }
+      ],
+      "provider": "openrouter/deepseek/deepseek-v4-flash",
+      "latency_ms": 19299,
+      "passed": true,
+      "reason": "Slide: \"Kiểm thử với SpotBugs\", Trang: [10, 11, 12, 13, 14, 18] (Chính xác)",
+      "error": null
+    },
+    {
+      "id": "RET-10",
+      "category": "SpotBugs Static Analysis",
+      "query": "Kiến trúc Detector Plugin và Pattern Matching được trình bày tại slide nào?",
+      "expected_slide": "Kiểm thử với SpotBugs",
+      "retrieved_slide": "Kiểm thử với SpotBugs",
+      "retrieved_slide_ids": [
+        "spotbugs-analysis"
+      ],
+      "expected_pages": [
+        15,
+        17,
+        18
+      ],
+      "retrieved_pages": [
+        17,
+        18,
+        14,
+        15,
+        19
+      ],
+      "slide_matched": true,
+      "page_hit": true,
+      "difficulty": "Medium",
+      "response": "Kiến trúc **Detector Plugin** và **Pattern Matching** được trình bày tại các slide sau:\n\n1. **Slide 17 (trang 17)** — Mục **4.3 Tải Detector Plugin**: Trình bày kiến trúc plugin của SpotBugs, cho phép mở rộng chức năng bằng cách định nghĩa các Bug Detector mới, khai báo trong tệp `findbugs.xml` và `message.xml`, cùng cơ chế tổ chức execution plan.\n\n2. **Slide 18 (trang 18)** — Mục **4.4.1 Pattern matching**: Trình bày cơ chế Pattern Matching — quét tĩnh bytecode để nhận diện các mẫu mã khớp với Bug Pattern, sử dụng OpcodeStack và các hàm visit() của ASM, cùng ví dụ minh họa lỗi DM_STRING_CTOR.\n\n3. **Slide 14 (trang 14)** — Trình bày hai cơ chế chính của Bug Detector: **Pattern Matching** và **DFA**, cùng giải thích khái niệm Bug Detector và Bug Pattern.\n\n4. **Slide 15 (trang 15)** — Mục **4 Kiến trúc và nguyên lý hoạt động**: Trình bày kiến trúc tổng quan mô-đun của SpotBugs (ClassContext, AnalysisContext, Bug Detector, BugInstance, hệ thống plugin) và giới thiệu hai cơ chế phát hiện lỗi chính: Pattern Matching và DFA.\n\n5. **Slide 19 (trang 19)** — Tiếp tục mục 4.4.1, trình bày ví dụ cụ thể và đánh giá về hiệu quả/giới hạn của Pattern Matching.\n\nTrọng tâm nhất về **Kiến trúc Detector Plugin** nằm ở **slide 17**, còn **Pattern Matching** được trình bày chi tiết ở **slide 18** và **slide 19**.",
+      "sources": [
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 17,
+          "pageEnd": 17,
+          "label": "nguyên bộ nhớ để lưu trữ các cấu trúc phức tạp, nhưng giúp giảm đáng kể thời gian phân",
+          "score": 0.7342
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 18,
+          "pageEnd": 18,
+          "label": "4.4.1 Pattern matching",
+          "score": 0.3898
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 14,
+          "pageEnd": 14,
+          "label": "Bảng 2: Các hàm visit() trong SpotBugs",
+          "score": 0.3623
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 15,
+          "pageEnd": 15,
+          "label": "4 Kiến trúc và nguyên lý hoạt động",
+          "score": 0.6858
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 19,
+          "pageEnd": 19,
+          "label": "11 // Create a BugInstance when the pattern is matched",
+          "score": 0.334
+        }
+      ],
+      "provider": "openrouter/deepseek/deepseek-v4-flash",
+      "latency_ms": 26246,
+      "passed": true,
+      "reason": "Slide: \"Kiểm thử với SpotBugs\", Trang: [17, 18, 14, 15, 19] (Chính xác)",
+      "error": null
+    },
+    {
+      "id": "RET-11",
+      "category": "SpotBugs Static Analysis",
+      "query": "Trực quan hóa kết quả thực nghiệm SpotBugs trên IntelliJ và HTML Report ở trang mấy?",
+      "expected_slide": "Kiểm thử với SpotBugs",
+      "retrieved_slide": "Kiểm thử với SpotBugs",
+      "retrieved_slide_ids": [
+        "spotbugs-analysis"
+      ],
+      "expected_pages": [
+        24,
+        25,
+        26
+      ],
+      "retrieved_pages": [
+        23,
+        25,
+        26,
+        39
+      ],
+      "slide_matched": true,
+      "page_hit": false,
+      "difficulty": "Medium",
+      "response": "Kết quả thực nghiệm SpotBugs được trực quan hóa những nội dung sau:\n\n1. **Kết quả trên IntelliJ IDEA**: Hiển thị chi tiết tại **trang 23** (Hình 2: Hiển thị SpotBugs trên IntelliJ IDEA) và **trang 25** (Hình 4: Hiển thị theo Bug Category). Trang 25 cũng minh họa thao tác xuất báo cáo HTML (Hình 5: Hiển thị xuất báo cáo).\n\n2. **Kết quả báo cáo HTML**: Hiển thị tại **trang 26** — cụ thể là **Hình 6: Hiển thị báo cáo HTML**, kèm Bảng 4 phân bố lỗi theo danh mục trong báo cáo SpotBugs (43 lỗi, mật độ lỗi 30.30 lỗi/1000 dòng mã không chứa chú thích).\n\nNgoài ra, tài liệu còn có các hình trực quan hóa kết quả khác như Hình 14 (mục 5.6.3, trang 39) về sai sót hiển thị giữa IntelliJ và báo cáo.",
+      "sources": [
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 23,
+          "pageEnd": 23,
+          "label": "• Công cụ/Phụ thuộc: Không sử dụng Maven/Gradle, tích hợp qua plugin IntelliJ",
+          "score": 0.7179
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 25,
+          "pageEnd": 25,
+          "label": "Xem trong IntelliJ: Có thể tùy chọn hiển thị theo bộ lọc để xem lỗi chi tiết như hiển",
+          "score": 0.7129
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 26,
+          "pageEnd": 26,
+          "label": "Hình 6: Hiển thị báo cáo HTML",
+          "score": 0.7457
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 39,
+          "pageEnd": 39,
+          "label": "• Tính toán tổng số lỗi thực tế (ground truth): 40 (true positives) + 5 (false",
+          "score": 0.694
+        }
+      ],
+      "provider": "openrouter/deepseek/deepseek-v4-flash",
+      "latency_ms": 25053,
+      "passed": false,
+      "reason": "Kỳ vọng \"Kiểm thử với SpotBugs\" trang [24, 25, 26]; nhận \"Kiểm thử với SpotBugs\" trang [23, 25, 26, 39].",
+      "error": null
+    },
+    {
+      "id": "RET-12",
+      "category": "SpotBugs Static Analysis",
+      "query": "Phân loại các nhóm lỗi Security và Performance nằm ở slide nào?",
+      "expected_slide": "Kiểm thử với SpotBugs",
+      "retrieved_slide": "Kiểm thử với SpotBugs",
+      "retrieved_slide_ids": [
+        "spotbugs-analysis"
+      ],
+      "expected_pages": [
+        8
+      ],
+      "retrieved_pages": [
+        32,
+        26,
+        31
+      ],
+      "slide_matched": true,
+      "page_hit": false,
+      "difficulty": "Easy",
+      "response": "Phân loại các nhóm lỗi Security và Performance:\n\n**Security**: Nhóm lỗi **Malicious Code Vulnerability** (12 lỗi) thuộc danh mục bảo mật, nằm ở **slide 31** (Nguồn 5).\n\n**Performance**: Nhóm lỗi **Performance** (6 lỗi) thuộc danh mục hiệu năng, bắt đầu từ **slide 32** (Nguồn 1) và cũng được nhắc đến ở **slide 26** (Nguồn 4).\n\nCụ thể:\n- Security (Malicious Code Vulnerability) nằm ở slide 31.\n- Performance bắt đầu từ slide 32.",
+      "sources": [
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 32,
+          "pageEnd": 32,
+          "label": "May expose internal representation by incorporating reference to mutable",
+          "score": 0.4978
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 26,
+          "pageEnd": 26,
+          "label": "Hình 6: Hiển thị báo cáo HTML",
+          "score": 0.4412
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 31,
+          "pageEnd": 31,
+          "label": "5.4.3 Malicious Code Vulnerability (12 lỗi)",
+          "score": 0.5091
+        }
+      ],
+      "provider": "openrouter/deepseek/deepseek-v4-flash",
+      "latency_ms": 63919,
+      "passed": false,
+      "reason": "Kỳ vọng \"Kiểm thử với SpotBugs\" trang [8]; nhận \"Kiểm thử với SpotBugs\" trang [32, 26, 31].",
+      "error": null
+    },
+    {
+      "id": "RET-13",
+      "category": "SpotBugs Static Analysis",
+      "query": "Đánh giá hiệu năng công cụ qua hai chỉ số Precision và Recall ở trang bao nhiêu?",
+      "expected_slide": "Kiểm thử với SpotBugs",
+      "retrieved_slide": "Kiểm thử với SpotBugs",
+      "retrieved_slide_ids": [
+        "spotbugs-analysis"
+      ],
+      "expected_pages": [
+        39
+      ],
+      "retrieved_pages": [
+        38,
+        39
+      ],
+      "slide_matched": true,
+      "page_hit": true,
+      "difficulty": "Easy",
+      "response": "Việc đánh giá hiệu năng công cụ qua hai chỉ số **Precision và Recall** được trình bày tại **trang 38–39** trong bài *Kiểm thử* (khóa \"Kiểm_thử___N11 (1)\"). Cụ thể:\n\n- **Trang 38**: Giới thiệu phương pháp đánh giá, trong đó nhóm phân tích các chỉ số gồm tỷ lệ cảnh báo sai (false positives), **độ chính xác dương (precision)** và **độ bao phủ (recall)**, dựa trên 43 lỗi được SpotBugs phát hiện so sánh với SonarQube (21 lỗi).\n\n- **Trang 39**: Trình bày bảng tóm tắt chỉ số (Bảng 6) với **Precision = 93%** (TP/(TP+FP)) và **Recall = 88,9%** (TP/(TP+FN)), cùng tổng kết thực nghiệm đánh giá hiệu năng của công cụ SpotBugs.\n\nNgoài ra, bài *d2-slide-hackathon* (trang 23) cũng đề cập đến khái niệm Precision ↔ Recall nhưng theo hướng nguyên lý \"đánh đổi\" giữa hai chỉ số, không phải phần đánh giá hiệu năng cụ thể của một công cụ.",
+      "sources": [
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 38,
+          "pageEnd": 38,
+          "label": "hiện các lỗi nhỏ mà còn nhận diện được những vấn đề nghiêm trọng có thể ảnh",
+          "score": 0.465
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 38,
+          "pageEnd": 38,
+          "label": "hiện các lỗi nhỏ mà còn nhận diện được những vấn đề nghiêm trọng có thể ảnh",
+          "score": 0.5304
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 39,
+          "pageEnd": 39,
+          "label": "• Tính toán tổng số lỗi thực tế (ground truth): 40 (true positives) + 5 (false",
+          "score": 0.5193
+        }
+      ],
+      "provider": "openrouter/deepseek/deepseek-v4-flash",
+      "latency_ms": 11830,
+      "passed": true,
+      "reason": "Slide: \"Kiểm thử với SpotBugs\", Trang: [38, 39] (Chính xác)",
+      "error": null
+    },
+    {
+      "id": "RET-14",
+      "category": "Cross-Topic Inference",
+      "query": "Trích dẫn các trang slide cần thiết để so sánh AI Agent với Detector Architecture?",
+      "expected_slide": "AI & LLM Foundation / SpotBugs",
+      "retrieved_slide": "AI & LLM Foundation",
+      "retrieved_slide_ids": [
+        "ai-llm-foundation"
+      ],
+      "expected_pages": [
+        24,
+        15
+      ],
+      "retrieved_pages": [
+        4,
+        24
+      ],
+      "slide_matched": true,
+      "page_hit": false,
+      "difficulty": "Hard",
+      "response": "Dựa trên nguồn được cung cấp, có thể so sánh AI Agent với Discriminative (Detector) Architecture như sau:\n\n- **Discriminative AI (Detector Architecture)** – Thuộc nhóm AI đầu tiên trong ba nhóm AI chính, chuyên về **phân loại và dự đoán**: lọc spam, phát hiện gian lận, nhận diện ảnh. Input dạng \"một nhãn, một con số\" [Nguồn 1].\n- **AI Agent (Agentic AI)** – Thuộc nhóm AI thứ ba, có khả năng **nhận mục tiêu rồi tự làm nhiều bước**: lập kế hoạch, dùng công cụ, hành động theo vòng lặp Goal → Plan → Action [Nguồn 1]. Một agent bao gồm 5 bộ phận: Goal, Reasoning, Tools, Memory, Action – chạy thành vòng lặp cho tới khi xong việc [Nguồn 6].\n\n**Tóm tắt khác biệt chính:**\n- Detector (phân biệt): Input → một nhãn/ con số, không có khả năng lập kế hoạch hay hành động nhiều bước.\n- Agent: Goal → Plan → Action, có vòng lặp quan sát – hành động, dùng công cụ và có bộ nhớ.",
+      "sources": [
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 4,
+          "pageEnd": 4,
+          "label": "Ba nhóm AI chính: phân loại · sinh nội dung · hành động",
+          "score": 0.5491
+        },
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 24,
+          "pageEnd": 24,
+          "label": "Giải phẫu một agent: 5 bộ phận là một vòng lặp",
+          "score": 0.4992
+        }
+      ],
+      "provider": "openrouter/deepseek/deepseek-v4-flash",
+      "latency_ms": 59485,
+      "passed": false,
+      "reason": "Kỳ vọng \"AI & LLM Foundation / SpotBugs\" trang [24, 15]; nhận \"AI & LLM Foundation\" trang [4, 24].",
+      "error": null
+    },
+    {
+      "id": "RET-15",
+      "category": "Cross-Topic Inference",
+      "query": "Muốn hiểu mối liên hệ giữa Token Mechanics và Java Bytecode thì cần đọc những trang nào?",
+      "expected_slide": "AI & LLM Foundation / SpotBugs",
+      "retrieved_slide": "AI & LLM Foundation / Kiểm thử với SpotBugs",
+      "retrieved_slide_ids": [
+        "ai-llm-foundation",
+        "spotbugs-analysis"
+      ],
+      "expected_pages": [
+        13,
+        10,
+        11
+      ],
+      "retrieved_pages": [
+        13,
+        12,
+        27,
+        15,
+        19,
+        10,
+        11
+      ],
+      "slide_matched": true,
+      "page_hit": true,
+      "difficulty": "Hard",
+      "response": "Từ kết quả tìm kiếm, tôi đã xác định được các trang liên quan đến **Token Mechanics** (trong bài *d1-slide-hackathon*) và **Java Bytecode** (trong bài *Kiểm_thử___N11 (1)*).\n\n**Về mối liên hệ giữa hai khái niệm này, các nguồn hiện tại KHÔNG cho thấy có mối liên kết trực tiếp được mô tả/ví dụ cụ thể giữa Token Mechanics và Java Bytecode.** Hai nhóm tài liệu này nằm ở hai bài học khác nhau, thuộc hai chủ đề hoàn toàn khác biệt:\n\n1. **Token Mechanics** (bài *d1-slide-hackathon*):\n   - **Trang 13**: giải thích cơ chế token — model không đọc \"từ\" nguyên vẹn mà cắt văn bản thành các mảnh nhỏ gọi là token; tiếng Việt, code, JSON tốn token hơn tiếng Anh.\n   - **Trang 12**: giải thích sinh văn bản = vòng lặp predict → append → rerun trên từng token.\n   - **Trang 27**: chi phí token (input/output).\n   - **Trang 15**: cơ chế attention giữa các token.\n   - **Trang 19**: RLHF — uốn cỗ máy đoán token.\n\n2. **Java Bytecode** (bài *Kiểm_thử___N11 (1)*):\n   - **Trang 10**: khái niệm Bytecode — định dạng trung gian của mã Java, được JVM thực thi theo cơ chế stack-based.\n   - **Trang 11**: cấu trúc file .class, thực thi bytecode trong JVM, các nhóm opcode.\n   - **Trang 12**: ví dụ disassemble bytecode của method, phân tích chi tiết từng lệnh, và vai trò của bytecode trong SpotBugs.\n\n**Điểm chạm duy nhất (gián tiếp):** Trang 13 của bài Token Mechanics có đề cập rằng \"code\" tốn token hơn tiếng Anh thường vì cấu trúc bị cắt nhỏ ra — nhưng không nói gì cụ thể về Java Bytecode, và không có trang nào xây dựng mối liên hệ trực tiếp giữa Token Mechanics và Java Bytecode.\n\n**Khuyến nghị đọc:**\n- Để hiểu **Token Mechanics**: đọc các trang 12, 13, 15, 19, 27 của bài *d1-slide-hackathon*.\n- Để hiểu **Java Bytecode**: đọc các trang 10, 11, 12 của bài *Kiểm_thử___N11 (1)*.\n\nNếu cần mối liên hệ trực tiếp giữa hai khái niệm (ví dụ: mã bytecode khi biểu diễn dưới dạng text/token mất bao nhiêu token, hay tác động của tokenizer lên code), tài liệu hiện có trong thư viện **chưa đủ bằng chứng** để trả lời.",
+      "sources": [
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 13,
+          "pageEnd": 13,
+          "label": "Token: model không đọc \"từ\", model đọc mảnh chữ",
+          "score": 0.6615
+        },
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 12,
+          "pageEnd": 12,
+          "label": "Sinh văn bản = đoán → nối vào câu → đoán tiếp",
+          "score": 0.5083
+        },
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 27,
+          "pageEnd": 27,
+          "label": "Token có giá: vé vào rẻ, vé ra đắt gấp 3–5 lần",
+          "score": 0.5604
+        },
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 15,
+          "pageEnd": 15,
+          "label": "Attention: mỗi từ được “nhìn sang” những từ quan trọng khác",
+          "score": 0.4578
+        },
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 19,
+          "pageEnd": 19,
+          "label": "RLHF: ba bước uốn cỗ máy đoán token thành trợ lý biết nghe lời",
+          "score": 0.2312
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 10,
+          "pageEnd": 10,
+          "label": "3.2 Phân tích Bytecode",
+          "score": 0.544
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 11,
+          "pageEnd": 11,
+          "label": "• Fields: Danh sách các biến thành viên của lớp, bao gồm tên, kiểu dữ liệu, phạm",
+          "score": 0.5397
+        },
+        {
+          "lessonId": "a4c0891c-2b4d-4b51-b153-3cae357aec81",
+          "page": 12,
+          "pageEnd": 12,
+          "label": "Được javac biên dịch thành bytecode (đoạn mã dưới đây là phần bytecode của method",
+          "score": 0.5217
+        }
+      ],
+      "provider": "openrouter/deepseek/deepseek-v4-flash",
+      "latency_ms": 25507,
+      "passed": true,
+      "reason": "Slide: \"AI & LLM Foundation / Kiểm thử với SpotBugs\", Trang: [13, 12, 27, 15, 19, 10, 11] (Chính xác)",
+      "error": null
+    },
+    {
+      "id": "RET-16",
+      "category": "Cross-Topic Inference",
+      "query": "Tìm slide về đánh giá chi phí Model kết hợp với đánh giá độ chính xác Precision/Recall?",
+      "expected_slide": "AI & LLM Foundation / SpotBugs",
+      "retrieved_slide": "AI & LLM Foundation / d2-slide-hackathon",
+      "retrieved_slide_ids": [
+        "ai-llm-foundation",
+        "38d24f0c-eec8-4315-9fd9-45e7100d13a5"
+      ],
+      "expected_pages": [
+        26,
+        27,
+        39
+      ],
+      "retrieved_pages": [
+        25,
+        26,
+        27,
+        23
+      ],
+      "slide_matched": true,
+      "page_hit": false,
+      "difficulty": "Hard",
+      "response": "Dựa trên các kết quả tìm kiếm, tôi tìm thấy các slide liên quan đến hai chủ đề này như sau:\n\n## 1. Slide về **đánh giá chi phí Model** (slide trong bài **d1-slide-hackathon**):\n\n- **Trang 25**: \"Cùng một mức năng lực, giá rơi khoảng 10 lần mỗi năm\" — nói về việc model rẻ hơn theo thời gian.\n- **Trang 26**: \"Chọn model theo TẦNG, không chọn theo tên\" — hướng dẫn chọn model theo chi phí và mức độ phức tạp của công việc, chia model thành các tầng: **Tầng 1 (Frontier đóng - đắt nhất)**, **Tầng 2 (Rẻ mà mạnh)**, **Tầng 3 (Self-host / Siêu rẻ)**. Hai lỗi đối xứng: gọi model đắt cho việc đơn giản → phí tiền; dùng model rẻ cho việc khó → kết quả tệ.\n- **Trang 27**: \"Token có giá: vé vào rẻ, vé ra đắt gấp 3–5 lần\" — giải thích chi phí API theo input/output tokens.\n\n## 2. Slide về **đánh giá Precision/Recall** (slide trong bài **d2-slide-hackathon**):\n\n- **Trang 23**: \"Precision ↔ Recall: đánh đổi không tránh khỏi\" — giải thích về sự đánh đổi giữa Precision (TP / (TP + FP)) và Recall (TP / (TP + FN)). Precision cao → ít gợi ý nhưng chắc chắn đúng; Recall cao → bao trọn mọi trường hợp nhưng nhiều False Positive. Không có cấu hình đúng tuyệt đối — phải test điểm cân bằng với người dùng.\n\n## 3. Slide kết hợp **chi phí Model + Precision/Recall**:\n\nKết quả tìm kiếm **không tìm thấy một slide cụ thể nào kết hợp trực tiếp đánh giá chi phí Model với đánh giá Precision/Recall**. Các chủ đề này nằm ở các slide khác nhau trong các bài học khác nhau (d1-slide-hackathon bàn về chi phí model; d2-slide-hackathon bàn về precision/recall). Không có slide nào trong thư viện trình bày trực tiếp mối quan hệ kết hợp giữa đánh giá chi phí và đánh giá độ chính xác Precision/Recall của model.",
+      "sources": [
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 25,
+          "pageEnd": 25,
+          "label": "Cùng một mức năng lực, giá rơi khoảng 10 lần mỗi năm",
+          "score": 0.5887
+        },
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 26,
+          "pageEnd": 26,
+          "label": "Chọn model theo TẦNG, không chọn theo tên",
+          "score": 0.5768
+        },
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 27,
+          "pageEnd": 27,
+          "label": "Token có giá: vé vào rẻ, vé ra đắt gấp 3–5 lần",
+          "score": 0.4943
+        },
+        {
+          "lessonId": "38d24f0c-eec8-4315-9fd9-45e7100d13a5",
+          "page": 23,
+          "pageEnd": 23,
+          "label": "Precision ↔ Recall: đánh đổi không tránh khỏi",
+          "score": 0.6105
+        }
+      ],
+      "provider": "openrouter/deepseek/deepseek-v4-flash",
+      "latency_ms": 27816,
+      "passed": false,
+      "reason": "Kỳ vọng \"AI & LLM Foundation / SpotBugs\" trang [26, 27, 39]; nhận \"AI & LLM Foundation / d2-slide-hackathon\" trang [25, 26, 27, 23].",
+      "error": null
+    },
+    {
+      "id": "RET-17",
+      "category": "Edge Cases (Out of Scope)",
+      "query": "Trang slide nào dạy công thức nấu phở bò?",
+      "expected_slide": "Không có",
+      "retrieved_slide": "Không có",
+      "retrieved_slide_ids": [],
+      "expected_pages": [],
+      "retrieved_pages": [],
+      "slide_matched": true,
+      "page_hit": true,
+      "difficulty": "Easy",
+      "response": "Tôi đã tìm kiếm trong toàn bộ thư viện nhưng **không tìm thấy bất kỳ trang slide nào dạy công thức nấu phở bò**. \n\nCác bài học hiện có trong thư viện gồm:\n- **d1-slide-hackathon** (29 trang) — nội dung về prompt engineering, temperature, top_p (liên quan AI/ML)\n- **d2-slide-hackathon** (29 trang)\n- **Kiểm_thử___N11 (1)** (41 trang) — nội dung về SpotBugs, bytecode, phân tích tĩnh Java\n\nĐây đều là các chủ đề về công nghệ, lập trình và AI — **không có tài liệu nào về nấu ăn hay phở bò**. Câu hỏi của bạn nằm ngoài phạm vi tài liệu hiện có trong thư viện.",
+      "sources": [],
+      "provider": "openrouter/deepseek/deepseek-v4-flash",
+      "latency_ms": 23313,
+      "passed": true,
+      "reason": "Slide: \"Không có\", Trang: [] (Chính xác)",
+      "error": null
+    },
+    {
+      "id": "RET-18",
+      "category": "Edge Cases (Out of Scope)",
+      "query": "Cho xin trang slide nói về dự báo thời tiết Hà Nội hôm nay?",
+      "expected_slide": "Không có",
+      "retrieved_slide": "Không có",
+      "retrieved_slide_ids": [],
+      "expected_pages": [],
+      "retrieved_pages": [],
+      "slide_matched": true,
+      "page_hit": true,
+      "difficulty": "Easy",
+      "response": "Tôi đã tìm kiếm trong thư viện slide với nhiều truy vấn khác nhau liên quan đến \"dự báo thời tiết Hà Nội hôm nay\" nhưng không tìm thấy bất kỳ trang slide nào đề cập đến nội dung này. Thư viện hiện có chủ yếu các slide về AI/ML (như temperature & top_p, lịch sử AI 70 năm, giá model), hackathon, và kiểm thử phần mềm (SpotBugs) — không có nội dung về dự báo thời tiết.\n\nVì vậy, không thể cung cấp trang slide về dự báo thời tiết Hà Nội hôm nay vì tài liệu không có thông tin này.",
+      "sources": [],
+      "provider": "openrouter/deepseek/deepseek-v4-flash",
+      "latency_ms": 15165,
+      "passed": true,
+      "reason": "Slide: \"Không có\", Trang: [] (Chính xác)",
+      "error": null
+    },
+    {
+      "id": "RET-19",
+      "category": "Adversarial Wildcard",
+      "query": "chi minh trang slide ve attention mechanism bang tieng viet khong dau",
+      "expected_slide": "AI & LLM Foundation",
+      "retrieved_slide": "AI & LLM Foundation",
+      "retrieved_slide_ids": [
+        "ai-llm-foundation"
+      ],
+      "expected_pages": [
+        15
+      ],
+      "retrieved_pages": [
+        15,
+        16,
+        8
+      ],
+      "slide_matched": true,
+      "page_hit": true,
+      "difficulty": "Hard",
+      "response": "Co trang slide ve attention mechanism trong bai hoc \"d1-slide-hackathon\" (trang 15 va 16), noi dung tom tat nhu sau:\n\n**Trang 15 - \"Attention: moi tu duoc nhin sang nhung tu quan trong khac\":**\n- Thay vi doc tuan tu tung chu, co che attention cho phep moi token:\n  - Chu dong \"quay dau\" nhin lai cac token truoc do trong cau\n  - Cham diem muc do lien quan cua tung token doi voi nghia cua minh\n  - Khoa nghia theo ngu canh — vi du \"no\" la quyen sach hay cai tui, tuy theo no chu y vao tu nao\n- Day chinh la chu T trong GPT, va la ly do model hieu ngu canh tot hon han cac the he truoc\n- Co kem video minh hoa: \"Attention in transformers, step-by-step\" - 3Blue1Brown\n\n**Trang 16 - \"Hieu attention de dung AI hieu qua: quan context = quan su chu y\":**\n- Attention co han va co \"diem mu\", cach bay context quyet dinh model chu y vao dau:\n  1. Dat dieu quan trong dau - cuoi (dau va cuoi prompt duoc chu y nhieu nhat, o giua de bi bo sot)\n  2. Giu ban lam viec sach\n  3. Cho tra so thay vi bat nho\n- Context rac = attention rac: khi chat dai hay tom tat lai; khi vibe code, dua dung file lien quan, khong dan ca repo\n- Agent manh khong phai vi context khong lo — ma vi no co tools de lay dung thu vao ban lam viec dung luc\n\nNgoai ra, trang 8 cung de cap: Transformer (2017) la buoc ngoat vi moi tu co the nhin sang nhung tu quan trong khac trong ca cau, thay vi chi di tuan tu tung buoc — tro thanh nen mong ky thuat cho GPT, BERT va toan bo lan song LLM sau do.",
+      "sources": [
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 15,
+          "pageEnd": 15,
+          "label": "Attention: mỗi từ được “nhìn sang” những từ quan trọng khác",
+          "score": 0.6634
+        },
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 16,
+          "pageEnd": 16,
+          "label": "Hiểu attention để dùng AI hiệu quả: quản context = quản sự chú ý",
+          "score": 0.5149
+        },
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 8,
+          "pageEnd": 8,
+          "label": "2017: Transformer",
+          "score": 0.5988
+        }
+      ],
+      "provider": "openrouter/deepseek/deepseek-v4-flash",
+      "latency_ms": 19795,
+      "passed": true,
+      "reason": "Slide: \"AI & LLM Foundation\", Trang: [15, 16, 8] (Chính xác)",
+      "error": null
+    },
+    {
+      "id": "RET-20",
+      "category": "Adversarial Wildcard",
+      "query": "tim trang slide ve ai agent tool memory action le lên gùm tui",
+      "expected_slide": "AI & LLM Foundation",
+      "retrieved_slide": "AI & LLM Foundation",
+      "retrieved_slide_ids": [
+        "ai-llm-foundation"
+      ],
+      "expected_pages": [
+        24
+      ],
+      "retrieved_pages": [
+        24,
+        4
+      ],
+      "slide_matched": true,
+      "page_hit": true,
+      "difficulty": "Hard",
+      "response": "Tôi đã tìm được slide về **AI Agent với các bộ phận Tool, Memory, Action** trong bài học **d1-slide-hackathon**.\n\n**Slide trang 24 — \"Giải phẫu một agent: 5 bộ phận là một vòng lặp\"** mô tả đầy đủ các thành phần này:\n\n- **① Goal**: mục tiêu cần đạt\n- **② Reasoning**: bộ não LLM chia bước\n- **③ Tools**: search · API · database · code\n- **④ Action**: hành động ra đời thật\n- **Memory**: sổ tay ghi nhớ các bước (ghi/đọc, kết nối vòng lặp)\n- Agent chạy thành **vòng lặp**: quan sát kết quả → lặp lại cho tới khi xong việc\n\nCông thức tổng quát trong slide: **Agent = Goal + Reasoning + Tools + Memory + Action**\n\nNgoài ra, slide còn có trang liên quan:\n- **Trang 4** — \"Ba nhóm AI chính\": giới thiệu AI Agentic (Goal → Plan → Action)\n- **Trang 16 (d2-slide-hackathon)** — \"Hệ thống AI = Model + Context + Planning + Tools\"\n\nRef nguồn: `6aa08fc8-a8cd-4506-8aea-2a2d8fa38002:page:24` và kết quả tìm kiếm `6aa08fc8-a8cd-4506-8aea-2a2d8fa38002:p24:page-24-chunk-1`.",
+      "sources": [
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 24,
+          "pageEnd": 24,
+          "label": "Giải phẫu một agent: 5 bộ phận là một vòng lặp",
+          "score": 0.4411
+        },
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 24,
+          "pageEnd": 24,
+          "label": "Giải phẫu một agent: 5 bộ phận là một vòng lặp",
+          "score": 1.0
+        },
+        {
+          "lessonId": "6aa08fc8-a8cd-4506-8aea-2a2d8fa38002",
+          "page": 4,
+          "pageEnd": 4,
+          "label": "Ba nhóm AI chính: phân loại · sinh nội dung · hành động",
+          "score": 0.4024
+        }
+      ],
+      "provider": "openrouter/deepseek/deepseek-v4-flash",
+      "latency_ms": 26456,
+      "passed": true,
+      "reason": "Slide: \"AI & LLM Foundation\", Trang: [24, 4] (Chính xác)",
+      "error": null
+    }
+  ]
+}

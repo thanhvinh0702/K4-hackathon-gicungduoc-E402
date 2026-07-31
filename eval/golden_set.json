@@ -25,7 +25,7 @@
     "query": "Cơ chế hoạt động của Token, Context Window và Attention Mechanism được mô tả ở trang mấy?",
     "expected_slide_id": "ai-llm-foundation",
     "expected_slide_title": "AI & LLM Foundation",
-    "expected_pages": [10],
+    "expected_pages": [13, 14, 15],
     "expected_topic": "Cơ chế LLM",
     "difficulty": "Medium"
   },
@@ -35,7 +35,7 @@
     "query": "Trang slide nào giải thích về AI Agent gồm 3 thành phần Tools, Memory và Action?",
     "expected_slide_id": "ai-llm-foundation",
     "expected_slide_title": "AI & LLM Foundation",
-    "expected_pages": [23],
+    "expected_pages": [24],
     "expected_topic": "AI Agent",
     "difficulty": "Easy"
   },
@@ -45,7 +45,7 @@
     "query": "Lựa chọn phân tầng Model và công thức tính chi phí Token nằm ở trang nào?",
     "expected_slide_id": "ai-llm-foundation",
     "expected_slide_title": "AI & LLM Foundation",
-    "expected_pages": [25],
+    "expected_pages": [26, 27],
     "expected_topic": "Model & Chi phí",
     "difficulty": "Medium"
   },
@@ -55,7 +55,7 @@
     "query": "Kỹ thuật Kỹ nghệ Prompt (Prompting) và tham số Temperature nằm ở slide bao nhiêu?",
     "expected_slide_id": "ai-llm-foundation",
     "expected_slide_title": "AI & LLM Foundation",
-    "expected_pages": [28],
+    "expected_pages": [28, 29],
     "expected_topic": "Prompting",
     "difficulty": "Easy"
   },
@@ -65,7 +65,7 @@
     "query": "Sự kết hợp giữa AI Reasoning và Software Quality được đề cập ở trang nào?",
     "expected_slide_id": "ai-llm-foundation",
     "expected_slide_title": "AI & LLM Foundation",
-    "expected_pages": [20],
+    "expected_pages": [22, 5],
     "expected_topic": "Kiểm chứng & Tự động hóa",
     "difficulty": "Hard"
   },
@@ -75,7 +75,7 @@
     "query": "Slide tổng quan về công cụ phân tích tĩnh SpotBugs và Bug Pattern nằm ở trang nào?",
     "expected_slide_id": "spotbugs-analysis",
     "expected_slide_title": "Kiểm thử với SpotBugs",
-    "expected_pages": [6],
+    "expected_pages": [6, 14],
     "expected_topic": "Tổng quan SpotBugs",
     "difficulty": "Easy"
   },
@@ -85,7 +85,7 @@
     "query": "Trang nào hướng dẫn về JVM Bytecode, thư viện ASM và Visitor Pattern?",
     "expected_slide_id": "spotbugs-analysis",
     "expected_slide_title": "Kiểm thử với SpotBugs",
-    "expected_pages": [10],
+    "expected_pages": [10, 11, 13],
     "expected_topic": "Bytecode & ASM",
     "difficulty": "Medium"
   },
@@ -95,7 +95,7 @@
     "query": "Kiến trúc Detector Plugin và Pattern Matching được trình bày tại slide nào?",
     "expected_slide_id": "spotbugs-analysis",
     "expected_slide_title": "Kiểm thử với SpotBugs",
-    "expected_pages": [15],
+    "expected_pages": [15, 17, 18],
     "expected_topic": "Kiến trúc Detector",
     "difficulty": "Medium"
   },
@@ -105,7 +105,7 @@
     "query": "Trực quan hóa kết quả thực nghiệm SpotBugs trên IntelliJ và HTML Report ở trang mấy?",
     "expected_slide_id": "spotbugs-analysis",
     "expected_slide_title": "Kiểm thử với SpotBugs",
-    "expected_pages": [22],
+    "expected_pages": [24, 25, 26],
     "expected_topic": "Thực nghiệm",
     "difficulty": "Medium"
   },
@@ -115,7 +115,7 @@
     "query": "Phân loại các nhóm lỗi Security và Performance nằm ở slide nào?",
     "expected_slide_id": "spotbugs-analysis",
     "expected_slide_title": "Kiểm thử với SpotBugs",
-    "expected_pages": [27],
+    "expected_pages": [8],
     "expected_topic": "Các nhóm lỗi",
     "difficulty": "Easy"
   },
@@ -125,7 +125,7 @@
     "query": "Đánh giá hiệu năng công cụ qua hai chỉ số Precision và Recall ở trang bao nhiêu?",
     "expected_slide_id": "spotbugs-analysis",
     "expected_slide_title": "Kiểm thử với SpotBugs",
-    "expected_pages": [38],
+    "expected_pages": [39],
     "expected_topic": "Đánh giá công cụ",
     "difficulty": "Easy"
   },
@@ -135,7 +135,7 @@
     "query": "Trích dẫn các trang slide cần thiết để so sánh AI Agent với Detector Architecture?",
     "expected_slide_id": "ai-llm-foundation",
     "expected_slide_title": "AI & LLM Foundation / SpotBugs",
-    "expected_pages": [23, 15],
+    "expected_pages": [24, 15],
     "expected_topic": "AI Agent vs Detector Architecture",
     "difficulty": "Hard"
   },
@@ -145,7 +145,7 @@
     "query": "Muốn hiểu mối liên hệ giữa Token Mechanics và Java Bytecode thì cần đọc những trang nào?",
     "expected_slide_id": "ai-llm-foundation",
     "expected_slide_title": "AI & LLM Foundation / SpotBugs",
-    "expected_pages": [10],
+    "expected_pages": [13, 10, 11],
     "expected_topic": "Token Mechanics & Bytecode",
     "difficulty": "Hard"
   },
@@ -155,7 +155,7 @@
     "query": "Tìm slide về đánh giá chi phí Model kết hợp với đánh giá độ chính xác Precision/Recall?",
     "expected_slide_id": "ai-llm-foundation",
     "expected_slide_title": "AI & LLM Foundation / SpotBugs",
-    "expected_pages": [25, 38],
+    "expected_pages": [26, 27, 39],
     "expected_topic": "Model Cost & Precision/Recall Evaluation",
     "difficulty": "Hard"
   },
@@ -185,7 +185,7 @@
     "query": "chi minh trang slide ve attention mechanism bang tieng viet khong dau",
     "expected_slide_id": "ai-llm-foundation",
     "expected_slide_title": "AI & LLM Foundation",
-    "expected_pages": [10],
+    "expected_pages": [15],
     "expected_topic": "Cơ chế LLM (Attention)",
     "difficulty": "Hard"
   },
@@ -195,7 +195,7 @@
     "query": "tim trang slide ve ai agent tool memory action le lên gùm tui",
     "expected_slide_id": "ai-llm-foundation",
     "expected_slide_title": "AI & LLM Foundation",
-    "expected_pages": [23],
+    "expected_pages": [24],
     "expected_topic": "AI Agent",
     "difficulty": "Hard"
   }

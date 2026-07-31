@@ -3,10 +3,11 @@ import json
 from langchain.agents import create_agent
 from langchain.agents.structured_output import ToolStrategy
 from langchain.tools import tool
+from langgraph.errors import GraphRecursionError
 
 from backend.config import settings
 from backend.models import AgentAnswer
-from backend.services.openai_service import get_chat_model
+from backend.services.openai_service import answer_with_context, get_chat_model
 from backend.services.retrieval_service import retrieve_lesson_chunks, retrieve_library_chunks
 from backend.storage import extracted_path, find_lesson, read_json, read_lessons
 
@@ -44,6 +45,7 @@ async def run_rag_agent(
     top_k: int | None = None,
 ) -> dict:
     source_registry: dict[str, dict] = {}
+    evidence_registry: dict[str, dict] = {}
     retrieval_calls = 0
     max_results = min(top_k or settings.retrieval_top_k, 6)
 
@@ -64,6 +66,7 @@ async def run_rag_agent(
         for chunk in chunks:
             ref, source = _source_from_chunk(chunk)
             source_registry[ref] = source
+            evidence_registry[ref] = chunk
             results.append(
                 {
                     "ref": ref,
@@ -103,6 +106,14 @@ async def run_rag_agent(
             "label": page_data["title"],
             "score": 1.0,
         }
+        evidence_registry[ref] = {
+            "lessonId": resolved_lesson_id,
+            "lessonTitle": lesson["title"],
+            "pageStart": page,
+            "pageEnd": page,
+            "title": page_data["title"],
+            "text": page_data["text"],
+        }
         return json.dumps(
             {
                 "ref": ref,
@@ -136,13 +147,37 @@ async def run_rag_agent(
         response_format=ToolStrategy(AgentAnswer),
         name="vlearn_rag_agent",
     )
-    result = await agent.ainvoke(
-        {"messages": [{"role": "user", "content": question}]},
-        config={"recursion_limit": 10},
-    )
-    structured = result.get("structured_response")
-    if not isinstance(structured, AgentAnswer):
-        raise RuntimeError("Agent không trả structured_response hợp lệ.")
+    try:
+        result = await agent.ainvoke(
+            {"messages": [{"role": "user", "content": question}]},
+            config={"recursion_limit": settings.agent_recursion_limit},
+        )
+        structured = result.get("structured_response")
+        if not isinstance(structured, AgentAnswer):
+            raise RuntimeError("Agent không trả structured_response hợp lệ.")
+    except GraphRecursionError:
+        # Một số model tương thích OpenAI tiếp tục gọi tool dù đã đủ dữ liệu.
+        # Chốt câu trả lời bằng một lượt structured output trên bằng chứng đã lấy
+        # để request không thất bại chỉ vì vòng điều phối của agent.
+        evidence_refs = list(evidence_registry)
+        if not evidence_refs:
+            return {
+                "answer": "Không tìm thấy đủ bằng chứng trong slide để trả lời câu hỏi này.",
+                "sources": [],
+                "model": settings.chat_model,
+            }
+        grounded, _ = await answer_with_context(
+            question,
+            [evidence_registry[ref] for ref in evidence_refs],
+        )
+        structured = AgentAnswer(
+            answer=grounded.answer,
+            source_refs=[
+                evidence_refs[source_id - 1]
+                for source_id in grounded.source_ids
+                if 1 <= source_id <= len(evidence_refs)
+            ],
+        )
 
     sources = []
     seen = set()
