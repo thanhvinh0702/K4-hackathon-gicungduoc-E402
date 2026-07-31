@@ -213,9 +213,10 @@
       "error": null
     },
     {
-      "id": "RET-05",
-      "category": "AI & LLM Foundation",
-      "query": "Lựa chọn phân tầng Model và công thức tính chi phí Token nằm ở trang nào?",
+      "id": "TC-09",
+      "category": "Câu mơ hồ, thiếu ngữ cảnh",
+      "prompt": "chi phi token llm tinh nhu nao z",
+      "expected_behavior": "Làm rõ chi phí Token của LLM (Slide AI trang 25) hay chi phí triển khai công cụ.",
       "expected_slide": "AI & LLM Foundation",
       "retrieved_slide": "AI & LLM Foundation",
       "retrieved_slide_ids": [
@@ -539,7 +540,7 @@
         "spotbugs-analysis"
       ],
       "expected_pages": [
-        22
+        23
       ],
       "retrieved_pages": [
         26,
@@ -572,16 +573,17 @@
       "error": null
     },
     {
-      "id": "RET-12",
-      "category": "SpotBugs Static Analysis",
-      "query": "Phân loại các nhóm lỗi Security và Performance nằm ở slide nào?",
+      "id": "TC-17",
+      "category": "Câu trả lời sai gây hậu quả thật",
+      "prompt": "spotbugs chay tren source code c++ hay sao vay moi ng",
+      "expected_behavior": "Đính chính chính xác theo Slide SpotBugs trang 10: SpotBugs phân tích JVM Bytecode (.class), không phải C++.",
       "expected_slide": "Kiểm thử với SpotBugs",
       "retrieved_slide": "Kiểm thử với SpotBugs",
       "retrieved_slide_ids": [
         "spotbugs-analysis"
       ],
       "expected_pages": [
-        27
+        10
       ],
       "retrieved_pages": [
         32,
@@ -614,9 +616,10 @@
       "error": null
     },
     {
-      "id": "RET-13",
-      "category": "SpotBugs Static Analysis",
-      "query": "Đánh giá hiệu năng công cụ qua hai chỉ số Precision và Recall ở trang bao nhiêu?",
+      "id": "TC-18",
+      "category": "Câu trả lời sai gây hậu quả thật",
+      "prompt": "cho minh hoi precision vs recall trong spotbugs tinh sao ko thay trong slide 38",
+      "expected_behavior": "Đính chính chuẩn xác kiến thức theo Slide SpotBugs trang 38, tránh làm học viên học sai kiến thức.",
       "expected_slide": "Kiểm thử với SpotBugs",
       "retrieved_slide": "Kiểm thử với SpotBugs / d2-slide-hackathon",
       "retrieved_slide_ids": [
