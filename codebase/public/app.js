@@ -9,6 +9,7 @@ const state = {
   conversations: [],
   activeConversationId: null,
   chatMode: "fast_rag",
+  chatting: false,
   lessonChats: {},
   mindmapScale: 1,
   uploading: false,
@@ -52,6 +53,8 @@ const elements = {
   newConversation: document.querySelector("#new-conversation"),
   deleteConversation: document.querySelector("#delete-conversation"),
   chatMode: document.querySelector("#chat-mode"),
+  chatScope: document.querySelector("#chat-scope"),
+  chatStatus: document.querySelector("#chat-status"),
   slideChatMessages: document.querySelector("#slide-chat-messages"),
   slideChatForm: document.querySelector("#slide-chat-form"),
   slideChatInput: document.querySelector("#slide-chat-input"),
@@ -160,6 +163,32 @@ function saveChatHistory() {
   } catch {
     // Chat vẫn hoạt động nếu trình duyệt chặn localStorage hoặc hết dung lượng.
   }
+}
+
+function syncChatModeControls() {
+  elements.chatMode.querySelectorAll("[data-chat-mode]").forEach((button) => {
+    const active = button.dataset.chatMode === state.chatMode;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+  elements.slideChatMode.value = state.chatMode;
+  elements.chatInput.placeholder = state.chatMode === "agentic_rag"
+    ? "Hỏi câu cần tổng hợp nhiều trang hoặc nhiều tài liệu..."
+    : "Hỏi nhanh về một chủ đề trong slide...";
+}
+
+function setChatMode(mode) {
+  if (!["fast_rag", "agentic_rag"].includes(mode)) return;
+  state.chatMode = mode;
+  syncChatModeControls();
+  saveChatHistory();
+}
+
+function updateChatScope() {
+  const readyLessons = state.lessons.filter((lesson) => lesson.status === "ready").length;
+  elements.chatScope.textContent = readyLessons
+    ? `Toàn bộ thư viện · ${readyLessons} tài liệu sẵn sàng`
+    : "Toàn bộ thư viện · Chưa có tài liệu sẵn sàng";
 }
 
 const mindmapNodes = [
@@ -539,15 +568,39 @@ async function askLessonChatbot(question) {
 }
 
 
-function addChatMessage(role, text, pages = [], persist = true, targetConversationId = state.activeConversationId) {
+function addChatMessage(
+  role,
+  text,
+  pages = [],
+  persist = true,
+  targetConversationId = state.activeConversationId,
+  originalQuestion = "",
+) {
   if (!persist || targetConversationId === state.activeConversationId) {
     const wrapper = document.createElement("div");
     wrapper.className = `message ${role}`;
     const sources = role === "assistant" && pages.length ? `
-      <div class="slide-sources">${pages.map((source) => `
-        <button class="slide-link" type="button" data-lesson="${source.lessonId}" data-page="${source.page}">↗ ${escapeHtml(source.label)} · tr. ${source.page}</button>
-      `).join("")}</div>` : "";
-    wrapper.innerHTML = `${role === "assistant" ? '<span class="message-avatar">AI</span>' : ""}<div class="message-bubble">${renderMessageText(role, text)}${sources}</div>`;
+      <div class="slide-sources">
+        <div class="source-heading"><span>Nguồn đã sử dụng</span><strong>${pages.length} trang</strong></div>
+        ${pages.map((source) => {
+    const lessonTitle = state.lessons.find((lesson) => lesson.id === source.lessonId)?.title || "Bài học";
+    return `<button class="slide-link" type="button" data-lesson="${escapeHtml(source.lessonId)}" data-page="${source.page}">
+          <strong>↗ ${escapeHtml(lessonTitle)}</strong>
+          <span>${escapeHtml(source.label)} · Trang ${source.page}</span>
+        </button>`;
+  }).join("")}
+      </div>` : "";
+    const followUps = role === "assistant" && originalQuestion ? `
+      <div class="follow-up-row">
+        <span>Bạn có thể hỏi tiếp</span>
+        <button class="follow-up-chip" type="button" data-follow-up="simplify">Giải thích đơn giản hơn</button>
+        <button class="follow-up-chip" type="button" data-follow-up="example">Cho ví dụ cụ thể</button>
+      </div>` : "";
+    wrapper.innerHTML = `${role === "assistant" ? '<span class="message-avatar">AI</span>' : ""}<div class="message-bubble">${renderMessageText(role, text)}${sources}${followUps}</div>`;
+    if (originalQuestion) {
+      wrapper.querySelector('[data-follow-up="simplify"]').dataset.question = `Hãy giải thích đơn giản hơn câu hỏi: ${originalQuestion}`;
+      wrapper.querySelector('[data-follow-up="example"]').dataset.question = `Hãy cho ví dụ cụ thể để làm rõ câu hỏi: ${originalQuestion}`;
+    }
     elements.chatMessages.appendChild(wrapper);
     elements.chatMessages.scrollTop = elements.chatMessages.scrollHeight;
   }
@@ -564,6 +617,44 @@ function addChatMessage(role, text, pages = [], persist = true, targetConversati
     renderConversationSelect();
     saveChatHistory();
   }
+}
+
+function createChatProgress(mode) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "message chat-progress-message";
+  wrapper.innerHTML = `
+    <span class="message-avatar">AI</span>
+    <div class="message-bubble">
+      <div class="chat-progress">
+        <span class="chat-progress-spinner" aria-hidden="true"></span>
+        <div><strong></strong><small></small></div>
+      </div>
+    </div>`;
+  const title = wrapper.querySelector(".chat-progress strong");
+  const detail = wrapper.querySelector(".chat-progress small");
+  const steps = mode === "agentic_rag" ? [
+    ["Đang tìm trong thư viện", "Chế độ Đào sâu có thể dùng nhiều lượt tìm kiếm.", 0],
+    ["Đang đọc các trang liên quan", "Thu thập thêm context cho từng ý trong câu hỏi.", 2600],
+    ["Đang kết nối thông tin", "Đối chiếu nội dung từ các nguồn đã tìm thấy.", 7000],
+    ["Đang tổng hợp câu trả lời", "Chuẩn bị nội dung và trang nguồn để kiểm chứng.", 12500],
+  ] : [
+    ["Đang tìm nội dung liên quan", "Tìm các đoạn phù hợp nhất trong thư viện.", 0],
+    ["Đang tổng hợp câu trả lời", "Chuẩn bị nội dung và trang nguồn.", 1800],
+  ];
+  const update = ([nextTitle, nextDetail]) => {
+    title.textContent = nextTitle;
+    detail.textContent = nextDetail;
+  };
+  update(steps[0]);
+  const timers = steps.slice(1).map((step) => window.setTimeout(() => update(step), step[2]));
+  elements.chatMessages.appendChild(wrapper);
+  elements.chatMessages.scrollTop = elements.chatMessages.scrollHeight;
+  return {
+    remove() {
+      timers.forEach(window.clearTimeout);
+      wrapper.remove();
+    },
+  };
 }
 
 function getActiveConversation() {
@@ -631,17 +722,16 @@ function deleteConversation() {
 
 async function askChatbot(question) {
   const value = question.trim();
-  if (!value) return;
+  if (!value || state.chatting) return;
   if (!getActiveConversation()) createConversation(false);
   const targetConversationId = state.activeConversationId;
   addChatMessage("user", value, [], true, targetConversationId);
   elements.chatInput.value = "";
-
-  const typing = document.createElement("div");
-  typing.className = "message";
-  typing.innerHTML = '<span class="message-avatar">AI</span><div class="message-bubble"><span class="typing-dots"><i></i><i></i><i></i></span></div>';
-  elements.chatMessages.appendChild(typing);
-  elements.chatMessages.scrollTop = elements.chatMessages.scrollHeight;
+  state.chatting = true;
+  elements.chatInput.disabled = true;
+  elements.chatForm.querySelector("button").disabled = true;
+  elements.chatStatus.innerHTML = "<i></i> Đang xử lý câu hỏi";
+  const progress = createChatProgress(state.chatMode);
 
   try {
     const response = await fetch("/api/chat", {
@@ -651,11 +741,17 @@ async function askChatbot(question) {
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.detail || "Không thể hỏi trợ lý lúc này.");
-    typing.remove();
-    addChatMessage("assistant", data.answer, data.sources || [], true, targetConversationId);
+    progress.remove();
+    addChatMessage("assistant", data.answer, data.sources || [], true, targetConversationId, value);
   } catch (error) {
-    typing.remove();
+    progress.remove();
     addChatMessage("assistant", error.message, [], true, targetConversationId);
+  } finally {
+    state.chatting = false;
+    elements.chatInput.disabled = false;
+    elements.chatForm.querySelector("button").disabled = false;
+    elements.chatStatus.innerHTML = "<i></i> Sẵn sàng hỗ trợ";
+    elements.chatInput.focus();
   }
 }
 
@@ -704,8 +800,8 @@ async function loadLessons() {
     if (!getActiveConversation()) createConversation(false);
     renderConversationSelect();
     renderChat();
-    elements.chatMode.value = state.chatMode;
-    elements.slideChatMode.value = state.chatMode;
+    syncChatModeControls();
+    updateChatScope();
     scheduleProcessingPoll();
   } catch {
     elements.list.innerHTML = '<p class="no-results">Không thể tải thư viện.</p>';
@@ -726,6 +822,7 @@ async function refreshProcessingLessons() {
     if (!response.ok) throw new Error();
     state.lessons = await response.json();
     renderList();
+    updateChatScope();
     if (!elements.homeView.hidden) renderHome();
     if (!elements.mindmapView.hidden) renderMindMap();
     const completed = state.lessons.find((lesson) => previous.get(lesson.id) === "processing" && lesson.status === "ready");
@@ -776,17 +873,16 @@ document.querySelector("#suggestion-list").addEventListener("click", (event) => 
 elements.newConversation.addEventListener("click", () => createConversation());
 elements.deleteConversation.addEventListener("click", deleteConversation);
 elements.conversationSelect.addEventListener("change", (event) => selectConversation(event.target.value));
-[elements.chatMode, elements.slideChatMode].forEach((select) => {
-  select.addEventListener("change", (event) => {
-    state.chatMode = event.target.value;
-    elements.chatMode.value = state.chatMode;
-    elements.slideChatMode.value = state.chatMode;
-    saveChatHistory();
-  });
+elements.chatMode.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-chat-mode]");
+  if (button) setChatMode(button.dataset.chatMode);
 });
+elements.slideChatMode.addEventListener("change", (event) => setChatMode(event.target.value));
 elements.chatMessages.addEventListener("click", (event) => {
   const link = event.target.closest(".slide-link");
   if (link) selectLesson(link.dataset.lesson, link.dataset.page);
+  const followUp = event.target.closest("[data-question]");
+  if (followUp) askChatbot(followUp.dataset.question);
 });
 elements.slideChatForm.addEventListener("submit", (event) => {
   event.preventDefault();

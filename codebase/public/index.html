@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css?v=20260731-4" />
+    <link rel="stylesheet" href="/styles.css?v=20260731-5" />
   </head>
   <body>
     <div class="app-shell">
@@ -90,25 +90,35 @@
               <h2 id="assistant-title">Hỏi đáp cùng tài liệu</h2>
               <p>Hỏi nhanh về nội dung slide. Câu trả lời sẽ dẫn bạn đến đúng bài học và đúng trang liên quan.</p>
               <div class="suggestion-list" id="suggestion-list">
-                <button type="button">Tóm tắt nội dung bài học</button>
-                <button type="button">Token và chi phí liên quan thế nào?</button>
-                <button type="button">AI Agent khác LLM ở đâu?</button>
+                <button type="button">Tóm tắt các bài học hiện có</button>
+                <button type="button">So sánh AI Agent và LLM</button>
+                <button type="button">Tìm các trang nói về Attention</button>
               </div>
             </div>
 
             <div class="chat-panel">
               <div class="chat-header">
                 <span class="bot-avatar" aria-hidden="true">AI</span>
-                <div><strong>Slide Assistant</strong><span><i></i> Sẵn sàng hỗ trợ</span></div>
+                <div><strong>Slide Assistant</strong><span id="chat-status"><i></i> Sẵn sàng hỗ trợ</span></div>
                 <button id="delete-conversation" type="button" title="Xóa đoạn chat hiện tại" aria-label="Xóa đoạn chat hiện tại">×</button>
               </div>
               <div class="conversation-toolbar">
                 <select id="conversation-select" aria-label="Chọn đoạn chat"></select>
-                <select id="chat-mode" class="rag-mode-select" aria-label="Chọn chế độ trả lời">
-                  <option value="fast_rag">Fast</option>
-                  <option value="agentic_rag">Agentic</option>
-                </select>
                 <button id="new-conversation" type="button"><span aria-hidden="true">+</span> Đoạn chat mới</button>
+              </div>
+              <div class="chat-contextbar">
+                <div class="chat-scope">
+                  <span>Đang hỏi</span>
+                  <strong id="chat-scope">Toàn bộ thư viện</strong>
+                </div>
+                <div class="rag-mode-switch" id="chat-mode" role="group" aria-label="Chọn độ sâu câu trả lời">
+                  <button type="button" data-chat-mode="fast_rag" aria-pressed="true" title="Phù hợp câu hỏi trực tiếp, một chủ đề">
+                    <span>⚡</span><strong>Hỏi nhanh</strong><small>Một chủ đề</small>
+                  </button>
+                  <button type="button" data-chat-mode="agentic_rag" aria-pressed="false" title="Phù hợp câu hỏi cần nhiều trang hoặc nhiều tài liệu">
+                    <span>✦</span><strong>Đào sâu</strong><small>Nhiều nguồn</small>
+                  </button>
+                </div>
               </div>
               <div class="chat-messages" id="chat-messages" aria-live="polite"></div>
               <form class="chat-form" id="chat-form">
@@ -179,8 +189,8 @@
                 <strong id="slide-assistant-title">Hỏi về bài học này</strong>
               </div>
               <select id="slide-chat-mode" class="rag-mode-select" aria-label="Chọn chế độ trả lời cho bài học">
-                <option value="fast_rag">Fast</option>
-                <option value="agentic_rag">Agentic</option>
+                <option value="fast_rag">Hỏi nhanh</option>
+                <option value="agentic_rag">Đào sâu</option>
               </select>
               <button id="reset-slide-chat" type="button" title="Làm mới cuộc trò chuyện">↻</button>
             </div>
@@ -236,6 +246,6 @@
     </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="/app.js?v=20260731-5" defer></script>
+    <script src="/app.js?v=20260731-6" defer></script>
   </body>
 </html>
