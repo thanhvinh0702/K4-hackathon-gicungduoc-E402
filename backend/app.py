@@ -38,6 +38,7 @@ async def health():
         "aiConfigured": bool(settings.openai_api_key),
         "customOpenAIBaseUrl": bool(settings.openai_base_url),
         "chatModel": settings.chat_model,
+        "routerModel": settings.router_model,
         "embeddingModel": settings.embedding_model,
     }
 

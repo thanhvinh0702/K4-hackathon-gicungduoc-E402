@@ -1,3 +1,5 @@
+from typing import Literal
+
 from pydantic import BaseModel, Field
 
 
@@ -42,3 +44,9 @@ class AgentAnswer(BaseModel):
         default_factory=list,
         description="Các ref nguồn chính xác được retrieval tools trả về; không tự tạo ref mới.",
     )
+
+
+class RouteDecision(BaseModel):
+    """Tuyến xử lý duy nhất do router lựa chọn."""
+
+    route: Literal["fast_rag", "agentic_rag", "out_of_scope", "clarify"]

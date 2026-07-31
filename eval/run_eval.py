@@ -11,7 +11,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from backend.config import settings
-from backend.services.agent_service import run_rag_agent
+from backend.services.chat_service import chat_with_library
 from backend.storage import extracted_path, read_json, read_lessons
 
 
@@ -84,7 +84,7 @@ async def evaluate_case(case: dict, aliases: dict[str, dict]) -> dict:
     started = time.perf_counter()
     error = None
     try:
-        response = await run_rag_agent(case["query"])
+        response = await chat_with_library(case["query"])
     except Exception as exc:
         response = {"answer": "", "sources": [], "model": settings.chat_model}
         error = f"{type(exc).__name__}: {exc}"

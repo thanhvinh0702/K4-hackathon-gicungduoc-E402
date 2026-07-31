@@ -198,5 +198,15 @@
     "expected_pages": [24],
     "expected_topic": "AI Agent",
     "difficulty": "Hard"
+  },
+  {
+    "id": "RET-21",
+    "category": "Cross-Topic Inference",
+    "query": "Trong phần RAG Context Pattern, tài liệu đề xuất Agent sử dụng công cụ search_kb để lấy context khi cần thay vì đưa toàn bộ kho kiến thức vào prompt. Theo bài học về AI Agent, khả năng này thuộc cấp độ Agent nào và tương ứng với bộ phận nào trong 5 bộ phận của Agent? Sau khi Agent quyết định dùng search_kb, model, ứng dụng và công cụ lần lượt thực hiện những bước gì để tạo ra câu trả lời cuối cùng? Hãy dẫn đúng các trang giải thích cho từng ý.",
+    "expected_slide_id": "ai-llm-foundation",
+    "expected_slide_title": "AI & LLM Foundation / Prompt Engineering & Tool Calling",
+    "expected_pages": [23, 24, 39, 47, 48],
+    "expected_topic": "RAG theo yêu cầu, cấp độ Agent, Tools và vòng lặp tool calling",
+    "difficulty": "Hard"
   }
 ]

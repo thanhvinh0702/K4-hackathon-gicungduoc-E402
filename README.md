@@ -77,7 +77,7 @@ Hoặc chỉ một bài:
 
 Chat trả về `answer` cùng `sources`; mỗi source chứa `lessonId`, `page`, `label` và điểm tương đồng để frontend mở đúng PDF/trang.
 
-Phần trả lời dùng LangChain Agentic RAG. Agent có các tool `search_slides`, `read_slide_page` và `list_lessons` (ở chat toàn thư viện), được giới hạn tối đa 3 lượt retrieval rồi trả structured output kèm nguồn. Với model có tiền tố `openrouter/`, backend tự tắt reasoning/thinking để gateway có thể dùng forced tool calling.
+Phần trả lời dùng luồng Router RAG. Backend retrieval sơ bộ rồi gọi router structured output để chọn `fast_rag`, `agentic_rag`, `out_of_scope` hoặc `clarify`. Fast RAG tổng hợp trực tiếp từ các chunk; Agentic RAG tái sử dụng các chunk ban đầu và có thêm các tool `search_slides`, `read_slide_page`, cùng `list_lessons` ở chat toàn thư viện. Tổng số lượt retrieval được giới hạn ở 3. Với model có tiền tố `openrouter/`, backend tự tắt reasoning/thinking để gateway có thể dùng forced tool calling.
 
 ## Kiểm thử
 

@@ -1,8 +1,9 @@
 from dataclasses import replace
 import asyncio
+from types import SimpleNamespace
 
 from backend.config import settings
-from backend.models import GroundedAnswer
+from backend.models import GroundedAnswer, RouteDecision
 from backend.services import openai_service
 
 
@@ -106,3 +107,87 @@ def test_answer_uses_function_calling_schema(monkeypatch):
     assert captured["schema"] is GroundedAnswer
     assert captured["method"] == "function_calling"
     assert captured["include_raw"] is True
+
+
+def test_router_uses_structured_output(monkeypatch):
+    captured = {}
+    decision = RouteDecision(route="fast_rag")
+
+    class FakeStructuredModel:
+        async def ainvoke(self, messages):
+            captured["messages"] = messages
+            return {"parsed": decision, "parsing_error": None}
+
+    class FakeRouterModel:
+        def with_structured_output(self, schema, **kwargs):
+            captured["schema"] = schema
+            captured.update(kwargs)
+            return FakeStructuredModel()
+
+    monkeypatch.setattr(openai_service, "get_router_model", lambda: FakeRouterModel())
+    sources = [{
+        "lessonTitle": "AI", "pageStart": 13, "title": "Token",
+        "text": "Token là đơn vị văn bản.", "score": 0.9,
+    }]
+
+    result, model = asyncio.run(
+        openai_service.route_question("Token là gì?", sources, "Bài học AI")
+    )
+
+    assert result is decision
+    assert model == settings.router_model
+    assert captured["schema"] is RouteDecision
+    assert captured["method"] == "function_calling"
+    assert captured["include_raw"] is True
+    assert "Token là đơn vị văn bản" in captured["messages"][1][1]
+
+
+def test_router_accepts_raw_normalized_tool_arguments(monkeypatch):
+    payload = {
+        "route": "agentic_rag",
+    }
+
+    class FakeStructuredModel:
+        async def ainvoke(self, messages):
+            raw = SimpleNamespace(
+                tool_calls=[{"name": "RouteDecision", "args": payload}],
+                additional_kwargs={},
+                content="",
+            )
+            return {"raw": raw, "parsed": None, "parsing_error": None}
+
+    class FakeRouterModel:
+        def with_structured_output(self, schema, **kwargs):
+            return FakeStructuredModel()
+
+    monkeypatch.setattr(openai_service, "get_router_model", lambda: FakeRouterModel())
+    decision, _ = asyncio.run(
+        openai_service.route_question("So sánh Rule và Agent", [], "Thư viện AI")
+    )
+
+    assert isinstance(decision, RouteDecision)
+    assert decision.route == "agentic_rag"
+
+
+def test_router_accepts_json_in_raw_content(monkeypatch):
+    raw = SimpleNamespace(
+        tool_calls=[],
+        additional_kwargs={},
+        content='```json\n{"route":"fast_rag"}\n```',
+    )
+
+    class FakeStructuredModel:
+        async def ainvoke(self, messages):
+            return {"raw": raw, "parsed": None, "parsing_error": None}
+
+    class FakeRouterModel:
+        def with_structured_output(self, schema, **kwargs):
+            return FakeStructuredModel()
+
+    monkeypatch.setattr(openai_service, "get_router_model", lambda: FakeRouterModel())
+    decision, _ = asyncio.run(
+        openai_service.route_question("Token là gì?", [], "Thư viện AI")
+    )
+
+    assert isinstance(decision, RouteDecision)
+    assert decision.route == "fast_rag"

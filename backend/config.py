@@ -17,6 +17,7 @@ class Settings:
     openai_api_key: str = os.getenv("OPENAI_API_KEY", "")
     openai_base_url: str = os.getenv("OPENAI_BASE_URL", "").strip()
     chat_model: str = os.getenv("CHAT_MODEL", "gpt-5.6-terra")
+    router_model: str = os.getenv("ROUTER_MODEL", os.getenv("CHAT_MODEL", "gpt-5.6-terra"))
     embedding_model: str = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
     embedding_batch_size: int = max(1, int(os.getenv("EMBEDDING_BATCH_SIZE", "64")))
     retrieval_top_k: int = max(1, int(os.getenv("RETRIEVAL_TOP_K", "5")))
