@@ -1,6 +1,12 @@
 node_modules/
+.venv/
+__pycache__/
+.pytest_cache/
+.env
 uploads/*.pdf
 uploads/lessons.json
+uploads/extracted/
+uploads/embeddings/
 !uploads/.gitkeep
 .DS_Store
 npm-debug.log*
