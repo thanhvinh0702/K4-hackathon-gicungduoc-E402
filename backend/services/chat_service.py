@@ -1,5 +1,5 @@
 from backend.services.openai_service import answer_with_context
-from backend.services.retrieval_service import retrieve_lesson_chunks, retrieve_library_chunks
+from backend.services.agent_service import run_rag_agent
 
 
 async def _answer_from_chunks(chunks: list[dict], question: str) -> dict:
@@ -40,10 +40,8 @@ async def _answer_from_chunks(chunks: list[dict], question: str) -> dict:
 
 
 async def chat_with_lesson(lesson_id: str, question: str, top_k: int | None = None) -> dict:
-    chunks = await retrieve_lesson_chunks(lesson_id, question, top_k=top_k)
-    return await _answer_from_chunks(chunks, question)
+    return await run_rag_agent(question, lesson_id=lesson_id, top_k=top_k)
 
 
 async def chat_with_library(question: str, top_k: int | None = None) -> dict:
-    chunks = await retrieve_library_chunks(question, top_k=top_k)
-    return await _answer_from_chunks(chunks, question)
+    return await run_rag_agent(question, top_k=top_k)

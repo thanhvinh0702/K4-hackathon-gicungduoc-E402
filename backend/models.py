@@ -28,3 +28,13 @@ class GroundedAnswer(BaseModel):
         default_factory=list,
         description="Danh sách ID nguồn dạng số, ví dụ [1, 3]. Chỉ dùng ID có trong ngữ cảnh.",
     )
+
+
+class AgentAnswer(BaseModel):
+    """Kết quả cuối của agentic RAG."""
+
+    answer: str = Field(description="Câu trả lời tiếng Việt dựa trên dữ liệu từ các retrieval tools.")
+    source_refs: list[str] = Field(
+        default_factory=list,
+        description="Các ref nguồn chính xác được retrieval tools trả về; không tự tạo ref mới.",
+    )
