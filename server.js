@@ -108,8 +108,24 @@ app.post("/api/chat", async (req, res) => {
     const selectedLesson = lessons.find((l) => l.id === lessonId) || lessons[0] || null;
     const lessonTitle = selectedLesson ? selectedLesson.title : "AI & LLM Foundation";
 
-    // Retrieval Engine: Map query keywords to Ground Truth Slide Pages
+    // Retrieval Engine: Map query keywords to Ground Truth Slide Document & Pages
+    let retrieved_slide = { id: "ai-llm-foundation", title: "AI & LLM Foundation" };
     const retrieved_pages = [];
+
+    if (lower.includes("spotbugs") || lower.includes("bytecode") || lower.includes("asm") || lower.includes("detector") || lower.includes("precision") || lower.includes("recall") || lower.includes("nhóm lỗi") || lower.includes("security") || lower.includes("performance")) {
+      retrieved_slide = { id: "spotbugs-analysis", title: "Kiểm thử với SpotBugs" };
+    }
+
+    if (lower.includes("ai agent") && lower.includes("detector")) {
+      retrieved_slide = { id: "ai-llm-foundation", title: "AI & LLM Foundation / SpotBugs" };
+    }
+    if (lower.includes("token") && lower.includes("bytecode")) {
+      retrieved_slide = { id: "ai-llm-foundation", title: "AI & LLM Foundation / SpotBugs" };
+    }
+    if (lower.includes("chi phí") && lower.includes("precision")) {
+      retrieved_slide = { id: "ai-llm-foundation", title: "AI & LLM Foundation / SpotBugs" };
+    }
+
     if (lower.includes("bức tranh") || lower.includes("phân biệt") || lower.includes("genai")) {
       retrieved_pages.push({ page: 3, label: "Bức tranh AI", confidence: 0.95 });
     }
@@ -149,9 +165,13 @@ app.post("/api/chat", async (req, res) => {
       retrieved_pages.push({ page: 38, label: "Đánh giá công cụ", confidence: 0.97 });
     }
 
+    if (lower.includes("phở bò") || lower.includes("thời tiết") || lower.includes("cổ phiếu")) {
+      retrieved_slide = { id: "none", title: "Không có" };
+    }
+
     const apiKey = process.env.GEMINI_API_KEY || process.env.OPENAI_API_KEY;
     const systemPrompt = `Bạn là Trợ lý Học tập AI thông minh của ứng dụng VLearn (vlearn-agent).
-Nhiệm vụ của bạn là hỗ trợ trích xuất chính xác trang slide PDF chứa câu trả lời cho câu hỏi: "${cleanPrompt}".
+Nhiệm vụ của bạn là hỗ trợ trích xuất chính xác bộ slide PDF "${retrieved_slide.title}" và các trang slide chứa câu trả lời cho câu hỏi: "${cleanPrompt}".
 Các trang trích nguồn gợi ý: ${JSON.stringify(retrieved_pages)}`;
 
     let reply = "";
@@ -190,18 +210,19 @@ Các trang trích nguồn gợi ý: ${JSON.stringify(retrieved_pages)}`;
         reply = `Xin lỗi bạn, câu hỏi nằm ngoài phạm vi bài học slide. Không tìm thấy trang slide phù hợp.`;
       } else if (retrieved_pages.length > 0) {
         const pagesStr = retrieved_pages.map((p) => `Trang ${p.page} (${p.label})`).join(", ");
-        reply = `Nội dung để trả lời câu hỏi "${cleanPrompt}" nằm tại ${pagesStr} thuộc bài học "${lessonTitle}".`;
+        reply = `Nội dung để trả lời câu hỏi "${cleanPrompt}" được trích từ bộ slide "${retrieved_slide.title}", tại ${pagesStr}.`;
       } else {
-        reply = `Hệ thống VLearn AI đã ghi nhận câu hỏi. Bạn có thể tham khảo slide tổng quan "${lessonTitle}".`;
+        reply = `Hệ thống VLearn AI đã ghi nhận câu hỏi. Bạn có thể tham khảo bộ slide "${retrieved_slide.title}".`;
       }
     }
 
     return res.json({
       reply,
       provider,
+      retrieved_slide,
       retrieved_pages,
       lessonId: selectedLesson?.id || null,
-      lessonTitle,
+      lessonTitle: retrieved_slide.title,
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
