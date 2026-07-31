@@ -84,6 +84,73 @@ function escapeHtml(value) {
   return div.innerHTML;
 }
 
+function renderInlineMarkdown(value) {
+  return escapeHtml(value)
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/`([^`]+)`/g, "<code>$1</code>");
+}
+
+function renderAssistantAnswer(value) {
+  const blocks = [];
+  let paragraph = [];
+  let listType = null;
+  let listItems = [];
+  const normalizedValue = String(value || "")
+    .replace(/:\s+-\s+/g, ":\n- ")
+    .replace(/([.!?])\s+-\s+/g, "$1\n- ");
+
+  const flushParagraph = () => {
+    if (!paragraph.length) return;
+    blocks.push(`<p>${renderInlineMarkdown(paragraph.join(" "))}</p>`);
+    paragraph = [];
+  };
+  const flushList = () => {
+    if (!listItems.length) return;
+    blocks.push(`<${listType}>${listItems.map((item) => `<li>${renderInlineMarkdown(item)}</li>`).join("")}</${listType}>`);
+    listType = null;
+    listItems = [];
+  };
+
+  normalizedValue.split(/\r?\n/).forEach((rawLine) => {
+    const line = rawLine.trim();
+    if (!line) {
+      flushParagraph();
+      flushList();
+      return;
+    }
+
+    const unordered = line.match(/^[-*•]\s+(.+)$/);
+    const ordered = line.match(/^\d+[.)]\s+(.+)$/);
+    if (unordered || ordered) {
+      flushParagraph();
+      const nextType = unordered ? "ul" : "ol";
+      if (listType && listType !== nextType) flushList();
+      listType = nextType;
+      listItems.push((unordered || ordered)[1]);
+      return;
+    }
+
+    const heading = line.match(/^#{1,4}\s+(.+)$/);
+    if (heading) {
+      flushParagraph();
+      flushList();
+      blocks.push(`<h4>${renderInlineMarkdown(heading[1])}</h4>`);
+      return;
+    }
+
+    flushList();
+    paragraph.push(line);
+  });
+
+  flushParagraph();
+  flushList();
+  return `<div class="answer-content">${blocks.join("")}</div>`;
+}
+
+function renderMessageText(role, text) {
+  return role === "assistant" ? renderAssistantAnswer(text) : `<p>${escapeHtml(text)}</p>`;
+}
+
 function lessonStatus(lesson) {
   if (lesson.status === "processing") {
     const labels = {
@@ -297,7 +364,7 @@ function addSlideChatMessage(role, text, pages = [], persist = true) {
     <div class="slide-sources">${pages.map((source) => `
       <button class="slide-link" type="button" data-lesson="${state.activeId}" data-page="${source.page}">↗ ${escapeHtml(source.label)} · tr. ${source.page}</button>
     `).join("")}</div>` : "";
-  wrapper.innerHTML = `${role === "assistant" ? '<span class="message-avatar">AI</span>' : ""}<div class="message-bubble"><p>${escapeHtml(text)}</p>${sources}</div>`;
+  wrapper.innerHTML = `${role === "assistant" ? '<span class="message-avatar">AI</span>' : ""}<div class="message-bubble">${renderMessageText(role, text)}${sources}</div>`;
   elements.slideChatMessages.appendChild(wrapper);
   elements.slideChatMessages.scrollTop = elements.slideChatMessages.scrollHeight;
   if (persist && state.activeId) {
@@ -360,7 +427,7 @@ function addChatMessage(role, text, pages = []) {
     <div class="slide-sources">${pages.map((source) => `
       <button class="slide-link" type="button" data-lesson="${source.lessonId}" data-page="${source.page}">↗ ${escapeHtml(source.label)} · tr. ${source.page}</button>
     `).join("")}</div>` : "";
-  wrapper.innerHTML = `${role === "assistant" ? '<span class="message-avatar">AI</span>' : ""}<div class="message-bubble"><p>${escapeHtml(text)}</p>${sources}</div>`;
+  wrapper.innerHTML = `${role === "assistant" ? '<span class="message-avatar">AI</span>' : ""}<div class="message-bubble">${renderMessageText(role, text)}${sources}</div>`;
   elements.chatMessages.appendChild(wrapper);
   elements.chatMessages.scrollTop = elements.chatMessages.scrollHeight;
 }

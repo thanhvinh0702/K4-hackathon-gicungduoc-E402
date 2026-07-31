@@ -7,6 +7,7 @@ from langchain_openai import ChatOpenAI
 
 from backend.config import settings
 from backend.models import GroundedAnswer
+from backend.prompts import GROUNDED_SYSTEM_PROMPT, GROUNDED_USER_PROMPT_TEMPLATE
 
 
 T = TypeVar("T")
@@ -105,12 +106,7 @@ async def answer_with_context(question: str, sources: list[dict]) -> tuple[Groun
             f" | {source['title']}\n{source['text']}"
         )
     context = "\n\n".join(context_blocks)
-    instructions = (
-        "Bạn là trợ lý học tập của VLearn. Chỉ trả lời dựa trên phần NGUỒN được cung cấp. "
-        "Trả lời bằng tiếng Việt, rõ ràng và súc tích. Chọn source_ids từ số nguồn được cung cấp; "
-        "không tự tạo ID hoặc số trang. Nếu nguồn không đủ, nói rõ trong answer và trả source_ids rỗng."
-    )
-    user_input = f"CÂU HỎI:\n{question}\n\nNGUỒN:\n{context}"
+    user_input = GROUNDED_USER_PROMPT_TEMPLATE.format(question=question, context=context)
 
     structured_model = model.with_structured_output(
         GroundedAnswer,
@@ -120,7 +116,7 @@ async def answer_with_context(question: str, sources: list[dict]) -> tuple[Groun
 
     async def request():
         return await structured_model.ainvoke(
-            [("system", instructions), ("human", user_input)],
+            [("system", GROUNDED_SYSTEM_PROMPT), ("human", user_input)],
         )
 
     result = await _with_retry(request)

@@ -7,25 +7,10 @@ from langgraph.errors import GraphRecursionError
 
 from backend.config import settings
 from backend.models import AgentAnswer
+from backend.prompts import AGENT_SYSTEM_PROMPT
 from backend.services.openai_service import answer_with_context, get_chat_model
 from backend.services.retrieval_service import retrieve_lesson_chunks, retrieve_library_chunks
 from backend.storage import extracted_path, find_lesson, read_json, read_lessons
-
-
-AGENT_SYSTEM_PROMPT = """Bạn là trợ lý Agentic RAG của VLearn.
-
-Mục tiêu: trả lời câu hỏi chỉ bằng bằng chứng lấy từ các retrieval tools.
-
-Quy tắc:
-- Luôn gọi search_slides ít nhất một lần trước khi trả lời câu hỏi về tài liệu.
-- Nếu kết quả chưa đủ, đổi query hoặc gọi read_slide_page để đọc đúng trang.
-- Dùng tối đa 3 lượt retrieval tools. Không gọi lại cùng một query nếu không có lý do.
-- Không dùng kiến thức bên ngoài để bổ sung dữ kiện mà tài liệu không có.
-- source_refs phải được sao chép chính xác từ trường ref do tools trả về.
-- Nếu bằng chứng không đủ, nói rõ và trả source_refs rỗng.
-- Trả lời bằng tiếng Việt, rõ ràng và súc tích.
-"""
-
 
 def _source_from_chunk(chunk: dict) -> tuple[str, dict]:
     ref = f"{chunk['lessonId']}:p{chunk['pageStart']}:{chunk['chunkId']}"
