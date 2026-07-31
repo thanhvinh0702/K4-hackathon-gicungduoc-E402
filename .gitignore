@@ -3,14 +3,14 @@ node_modules/
 __pycache__/
 .pytest_cache/
 .env
-uploads/*.pdf
-uploads/lessons.json
-uploads/extracted/
-uploads/embeddings/
-!uploads/.gitkeep
+codebase/.env
+codebase/uploads/*.pdf
+codebase/uploads/lessons.json
+codebase/uploads/extracted/
+codebase/uploads/embeddings/
+!codebase/uploads/.gitkeep
 .DS_Store
 npm-debug.log*
 
 
 .agents/
-.env

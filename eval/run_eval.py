@@ -7,8 +7,9 @@ from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(PROJECT_ROOT))
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+CODEBASE_ROOT = REPOSITORY_ROOT / "codebase"
+sys.path.insert(0, str(CODEBASE_ROOT))
 
 from backend.config import settings
 from backend.services.chat_service import chat_with_library
@@ -49,7 +50,7 @@ def lesson_aliases() -> dict[str, dict]:
     return aliases
 
 
-def summarize(details: list[dict], status: str) -> dict:
+def summarize(details: list[dict], status: str, mode: str) -> dict:
     total = len(details)
     passed = sum(item["passed"] for item in details)
     slide_matches = sum(item["slide_matched"] for item in details)
@@ -63,7 +64,8 @@ def summarize(details: list[dict], status: str) -> dict:
     return {
         "evaluated_at": utc_now(),
         "status": status,
-        "engine": "VLearn LangChain Agentic RAG",
+        "engine": f"VLearn {mode}",
+        "mode": mode,
         "model": settings.chat_model,
         "embedding_model": settings.embedding_model,
         "summary": {
@@ -80,11 +82,11 @@ def summarize(details: list[dict], status: str) -> dict:
     }
 
 
-async def evaluate_case(case: dict, aliases: dict[str, dict]) -> dict:
+async def evaluate_case(case: dict, aliases: dict[str, dict], mode: str) -> dict:
     started = time.perf_counter()
     error = None
     try:
-        response = await chat_with_library(case["query"])
+        response = await chat_with_library(case["query"], mode=mode)
     except Exception as exc:
         response = {"answer": "", "sources": [], "model": settings.chat_model}
         error = f"{type(exc).__name__}: {exc}"
@@ -132,7 +134,7 @@ async def evaluate_case(case: dict, aliases: dict[str, dict]) -> dict:
     }
 
 
-async def main(errors_only: bool = False) -> None:
+async def main(errors_only: bool = False, mode: str = "agentic_rag") -> None:
     golden_set = json.loads(GOLDEN_SET_PATH.read_text(encoding="utf-8"))
     aliases = lesson_aliases()
     details_by_id: dict[str, dict] = {}
@@ -155,10 +157,10 @@ async def main(errors_only: bool = False) -> None:
             return
 
     for index, case in enumerate(selected_cases, start=1):
-        result = await evaluate_case(case, aliases)
+        result = await evaluate_case(case, aliases, mode)
         details_by_id[result["id"]] = result
         ordered_details = [details_by_id[item["id"]] for item in golden_set if item["id"] in details_by_id]
-        write_atomic(summarize(ordered_details, status="running"))
+        write_atomic(summarize(ordered_details, status="running", mode=mode))
         marker = "HIT" if result["passed"] else "MISS"
         print(
             f"[{index:02d}/{len(selected_cases)}] {marker} {result['id']} "
@@ -167,16 +169,22 @@ async def main(errors_only: bool = False) -> None:
         )
     ordered_details = [details_by_id[item["id"]] for item in golden_set if item["id"] in details_by_id]
     status = "completed" if len(ordered_details) == len(golden_set) else "partial"
-    write_atomic(summarize(ordered_details, status=status))
+    write_atomic(summarize(ordered_details, status=status, mode=mode))
     print(f"Saved: {RESULTS_PATH}", flush=True)
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Chạy VLearn Agentic RAG golden-set evaluation.")
+    parser = argparse.ArgumentParser(description="Chạy VLearn golden-set evaluation theo mode đã chọn.")
     parser.add_argument(
         "--errors-only",
         action="store_true",
         help="Chỉ chạy lại các case trong results_v1.json có error != null rồi merge theo id.",
     )
+    parser.add_argument(
+        "--mode",
+        choices=("fast_rag", "agentic_rag"),
+        default="agentic_rag",
+        help="Luồng trả lời cần đánh giá (mặc định: agentic_rag).",
+    )
     arguments = parser.parse_args()
-    asyncio.run(main(errors_only=arguments.errors_only))
+    asyncio.run(main(errors_only=arguments.errors_only, mode=arguments.mode))

@@ -51,3 +51,14 @@ def test_library_chat_requires_api_key_when_not_configured(monkeypatch):
     monkeypatch.setattr(app_module, "settings", replace(settings, openai_api_key=""))
     response = asyncio.run(request("POST", "/api/chat", json={"question": "Tóm tắt thư viện"}))
     assert response.status_code == 503
+
+
+def test_chat_rejects_unknown_mode():
+    response = asyncio.run(
+        request(
+            "POST",
+            "/api/chat",
+            json={"question": "Tóm tắt thư viện", "mode": "auto"},
+        )
+    )
+    assert response.status_code == 422

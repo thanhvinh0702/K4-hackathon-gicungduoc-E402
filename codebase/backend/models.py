@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field
 class ChatRequest(BaseModel):
     question: str = Field(min_length=1, max_length=2000)
     top_k: int | None = Field(default=None, ge=1, le=12)
+    mode: Literal["fast_rag", "agentic_rag"] = "fast_rag"
 
 
 class ChatSource(BaseModel):
@@ -44,9 +45,3 @@ class AgentAnswer(BaseModel):
         default_factory=list,
         description="Các ref nguồn chính xác được retrieval tools trả về; không tự tạo ref mới.",
     )
-
-
-class RouteDecision(BaseModel):
-    """Tuyến xử lý duy nhất do router lựa chọn."""
-
-    route: Literal["fast_rag", "agentic_rag", "out_of_scope", "clarify"]

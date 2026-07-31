@@ -104,6 +104,10 @@
               </div>
               <div class="conversation-toolbar">
                 <select id="conversation-select" aria-label="Chọn đoạn chat"></select>
+                <select id="chat-mode" class="rag-mode-select" aria-label="Chọn chế độ trả lời">
+                  <option value="fast_rag">Fast</option>
+                  <option value="agentic_rag">Agentic</option>
+                </select>
                 <button id="new-conversation" type="button"><span aria-hidden="true">+</span> Đoạn chat mới</button>
               </div>
               <div class="chat-messages" id="chat-messages" aria-live="polite"></div>
@@ -174,6 +178,10 @@
                 <span>Trợ lý riêng của PDF</span>
                 <strong id="slide-assistant-title">Hỏi về bài học này</strong>
               </div>
+              <select id="slide-chat-mode" class="rag-mode-select" aria-label="Chọn chế độ trả lời cho bài học">
+                <option value="fast_rag">Fast</option>
+                <option value="agentic_rag">Agentic</option>
+              </select>
               <button id="reset-slide-chat" type="button" title="Làm mới cuộc trò chuyện">↻</button>
             </div>
 
@@ -228,6 +236,6 @@
     </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="/app.js?v=20260731-4" defer></script>
+    <script src="/app.js?v=20260731-5" defer></script>
   </body>
 </html>

@@ -1,8 +1,5 @@
 import asyncio
 import json
-import logging
-import time
-import uuid
 from collections.abc import Awaitable, Callable
 from typing import Any, TypeVar
 
@@ -11,20 +8,16 @@ from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, ValidationError
 
 from backend.config import settings
-from backend.models import GroundedAnswer, RouteDecision
+from backend.models import GroundedAnswer
 from backend.prompts import (
     GROUNDED_SYSTEM_PROMPT,
     GROUNDED_USER_PROMPT_TEMPLATE,
-    ROUTER_SYSTEM_PROMPT,
-    ROUTER_USER_PROMPT_TEMPLATE,
 )
 
 
 T = TypeVar("T")
 _client: AsyncOpenAI | None = None
 _chat_model: ChatOpenAI | None = None
-_router_model: ChatOpenAI | None = None
-logger = logging.getLogger("uvicorn.error")
 
 
 class AIConfigurationError(RuntimeError):
@@ -102,51 +95,6 @@ def _parse_structured_result(
     raise RuntimeError(f"{error_prefix} không trả {schema.__name__} hợp lệ.")
 
 
-def _structured_result_debug(result: Any) -> dict:
-    """Return safe, compact metadata for diagnosing gateway structured output."""
-    result_dict = result if isinstance(result, dict) else {}
-    raw = result_dict.get("raw", result)
-    parsed = result_dict.get("parsed")
-    parsing_error = result_dict.get("parsing_error")
-    normalized_tools = []
-    for tool_call in getattr(raw, "tool_calls", None) or []:
-        if isinstance(tool_call, dict):
-            normalized_tools.append(tool_call.get("name") or "unnamed")
-
-    additional_kwargs = getattr(raw, "additional_kwargs", None) or {}
-    provider_tools = []
-    for tool_call in additional_kwargs.get("tool_calls", []):
-        if not isinstance(tool_call, dict):
-            continue
-        function = tool_call.get("function", {})
-        provider_tools.append(function.get("name") if isinstance(function, dict) else "unnamed")
-
-    metadata = getattr(raw, "response_metadata", None) or {}
-    safe_metadata = {
-        key: metadata.get(key)
-        for key in ("model_name", "model", "finish_reason", "system_fingerprint")
-        if metadata.get(key) is not None
-    }
-    usage = getattr(raw, "usage_metadata", None)
-    content = getattr(raw, "content", None)
-    content_preview = repr(content)
-    if len(content_preview) > 800:
-        content_preview = content_preview[:800] + "..."
-
-    return {
-        "result_type": type(result).__name__,
-        "result_keys": sorted(result_dict.keys()),
-        "raw_type": type(raw).__name__ if raw is not None else None,
-        "parsed_type": type(parsed).__name__ if parsed is not None else None,
-        "parsing_error": repr(parsing_error) if parsing_error else None,
-        "normalized_tool_calls": normalized_tools,
-        "provider_tool_calls": provider_tools,
-        "content_preview": content_preview,
-        "response_metadata": safe_metadata,
-        "usage_metadata": usage,
-    }
-
-
 def has_api_key() -> bool:
     return bool(settings.openai_api_key)
 
@@ -193,15 +141,6 @@ def get_chat_model() -> ChatOpenAI:
     if _chat_model is None:
         _chat_model = ChatOpenAI(**_chat_model_options(settings.chat_model, 1200))
     return _chat_model
-
-
-def get_router_model() -> ChatOpenAI:
-    global _router_model
-    if not has_api_key():
-        raise AIConfigurationError("OPENAI_API_KEY chưa được cấu hình trên backend.")
-    if _router_model is None:
-        _router_model = ChatOpenAI(**_chat_model_options(settings.router_model, 320))
-    return _router_model
 
 
 async def _with_retry(operation: Callable[[], Awaitable[T]], attempts: int = 3) -> T:
@@ -263,94 +202,3 @@ async def answer_with_context(question: str, sources: list[dict]) -> tuple[Groun
     result = await _with_retry(request)
     parsed = _parse_structured_result(result, GroundedAnswer, "Model")
     return parsed, settings.chat_model
-
-
-async def route_question(
-    question: str,
-    sources: list[dict],
-    scope: str,
-) -> tuple[RouteDecision, str]:
-    request_id = uuid.uuid4().hex[:8]
-    started = time.perf_counter()
-    candidates = [
-        {
-            "source_id": index,
-            "lesson": source.get("lessonTitle"),
-            "page": source.get("pageStart"),
-            "title": source.get("title"),
-            "score": round(float(source.get("score", 0.0)), 4),
-            "excerpt": str(source.get("text", ""))[:700],
-        }
-        for index, source in enumerate(sources, start=1)
-    ]
-    user_input = ROUTER_USER_PROMPT_TEMPLATE.format(
-        scope=scope,
-        question=question,
-        candidates=json.dumps(candidates, ensure_ascii=False),
-    )
-    logger.info(
-        "[router:%s] prepare model=%s base_url=%s candidates=%d question_chars=%d",
-        request_id,
-        settings.router_model,
-        settings.openai_base_url or "OpenAI default",
-        len(candidates),
-        len(question),
-    )
-    try:
-        structured_model = get_router_model().with_structured_output(
-            RouteDecision,
-            method="function_calling",
-            include_raw=True,
-        )
-    except Exception:
-        logger.exception("[router:%s] failed before HTTP dispatch", request_id)
-        raise
-
-    attempt = 0
-    async def request():
-        nonlocal attempt
-        attempt += 1
-        logger.info(
-            "[router:%s] HTTP dispatch attempt=%d model=%s",
-            request_id,
-            attempt,
-            settings.router_model,
-        )
-        return await structured_model.ainvoke(
-            [("system", ROUTER_SYSTEM_PROMPT), ("human", user_input)],
-        )
-
-    try:
-        result = await _with_retry(request, attempts=2)
-    except Exception:
-        logger.exception(
-            "[router:%s] HTTP request failed attempts=%d elapsed_ms=%d",
-            request_id,
-            attempt,
-            round((time.perf_counter() - started) * 1000),
-        )
-        raise
-
-    debug = _structured_result_debug(result)
-    logger.info(
-        "[router:%s] HTTP response elapsed_ms=%d payload=%s",
-        request_id,
-        round((time.perf_counter() - started) * 1000),
-        json.dumps(debug, ensure_ascii=False, default=str),
-    )
-    try:
-        parsed = _parse_structured_result(result, RouteDecision, "Router")
-    except Exception:
-        logger.exception(
-            "[router:%s] parse failed payload=%s",
-            request_id,
-            json.dumps(debug, ensure_ascii=False, default=str),
-        )
-        raise
-    logger.info(
-        "[router:%s] decision route=%s elapsed_ms=%d",
-        request_id,
-        parsed.route,
-        round((time.perf_counter() - started) * 1000),
-    )
-    return parsed, settings.router_model

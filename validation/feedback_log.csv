@@ -1,0 +1,19 @@
+feedback_id,session_id,date,persona,task,area,feedback,type,severity,frequency,recommendation,status
+FB-001,UT03,2026-07-30,Hoc vien,T2,Agentic retrieval,"Cau tra loi tong hop dung y chinh nhung chi dan mot trong hai bo slide can dung.",Problem,P0,3/12,"Mo rong truy xuat nhieu vong va bat buoc kiem tra du nguon truoc khi tong hop.",Open
+FB-002,UT01,2026-07-30,Hoc vien,T4,Mode selector,"Minh khong biet Fast va Agentic khac nhau o diem nao.",Problem,P1,5/12,"Them mo ta ngan: Fast cho cau hoi don gian; Agentic cho cau hoi can tong hop nhieu tai lieu.",Planned
+FB-003,UT09,2026-07-30,Nguoi moi dung AI Tutor,T4,Mode selector,"Ten Agentic nghe ky thuat nen minh chon Fast vi quen thuoc hon.",Problem,P2,4/12,"Dung nhan tieng Viet hoac tooltip kem vi du cho tung mode.",Planned
+FB-004,UT02,2026-07-30,Hoc vien,T2,Agentic response,"Cho gan nua phut ma khong thay trang thai nen minh tuong he thong bi treo.",Problem,P1,4/12,"Hien thi cac buoc dang tim kiem dang doc va dang tong hop.",Planned
+FB-005,UT07,2026-07-30,Hoc vien,T2,Chat,"Minh bam gui lai vi khong chac cau hoi dau tien da duoc nhan.",Problem,P2,2/12,"Khoa nut gui trong khi xu ly va hien thi thoi gian cho du kien.",Open
+FB-006,UT05,2026-07-30,Giang vien,T3,Citations,"Co nhieu link nguon nhung chua ro moi link chung minh cho y nao trong cau tra loi.",Problem,P1,3/12,"Danh so citation trong noi dung va gan voi the nguon tuong ung.",Planned
+FB-007,UT11,2026-07-30,Tro giang,T3,Citations,"Bam vao trang dung rat tien vi co the kiem tra lai ngay.",Positive,P3,9/12,"Giu luong mo dung trang va lam noi bat nguon dang duoc xem.",Done
+FB-008,UT06,2026-07-30,Hoc vien,T3,Responsive layout,"Tren may tinh bang khung PDF va chat deu hep nen minh phai zoom nhieu lan.",Problem,P1,3/3 tablet,"Chuyen PDF va chat thanh hai tab khi man hinh hep.",Open
+FB-009,UT04,2026-07-30,Hoc vien,T1,Upload,"Sau khi tai len minh thay bai hoc ngay nen biet file da vao thu vien.",Positive,P3,10/12,"Giu phan hoi tuc thi va bo sung thanh tien trinh xu ly.",Done
+FB-010,UT10,2026-07-30,Nguoi moi dung AI Tutor,T1,Upload,"File hien trong thu vien nhung minh khong biet khi nao co the bat dau hoi.",Problem,P2,3/12,"Hien thi ro trang thai processing ready va failed tren lesson card.",Done
+FB-011,UT08,2026-07-30,Hoc vien,T1,Upload validation,"Thong bao file khong hop le de hieu nhung chua noi cach khac phuc.",Problem,P2,1/12,"Kem gioi han PDF 50 MB va hanh dong thu lai trong thong bao loi.",Done
+FB-012,UT12,2026-07-30,Giang vien,T2,Answer quality,"Cau tra loi chia thanh tung y va co nguon de kiem chung nen dang tin hon chatbot thong thuong.",Positive,P3,8/12,"Duy tri cau truc tra loi ngan gon va citation theo tung luan diem.",Done
+FB-013,UT01,2026-07-30,Hoc vien,T5,Conversation history,"Danh sach doan chat giup minh quay lai cau hoi cu ma khong can hoi lai.",Positive,P3,9/12,"Giu lich su chat va bo sung tim kiem khi so luong hoi thoai tang.",Done
+FB-014,UT09,2026-07-30,Nguoi moi dung AI Tutor,T5,Conversation history,"Ten doan chat bi cat nen hai cuoc noi chuyen trong giong nhau.",Problem,P2,3/12,"Cho phep doi ten va hien tooltip tieu de day du.",Open
+FB-015,UT03,2026-07-30,Hoc vien,T2,Suggested prompts,"Goi y cau hoi giup minh biet chatbot co the lam gi.",Positive,P2,7/12,"Them mot goi y mau cho cau hoi lien ket hai bai hoc.",Done
+FB-016,UT05,2026-07-30,Giang vien,T3,PDF viewer,"Mo dung trang la tot nhung khi quay lai chat minh mat vi tri dang doc.",Problem,P2,2/12,"Luu trang PDF gan nhat theo tung bai hoc va co nut quay lai cau tra loi.",Planned
+FB-017,UT07,2026-07-30,Hoc vien,T2,Answer formatting,"Cau tra loi dai lien tuc nen minh kho tim y chinh truoc khi bam nguon.",Problem,P2,3/12,"Uu tien tom tat 2-3 y dau tien va dung heading hoac bullet.",Planned
+FB-018,UT11,2026-07-30,Tro giang,T2,Scope handling,"Khi tai lieu khong co cau tra loi he thong nen noi ro da tim trong nhung bai nao.",Problem,P2,2/12,"Voi cau khong tim thay hay liet ke pham vi da kiem tra va goi y cau hoi khac.",Open

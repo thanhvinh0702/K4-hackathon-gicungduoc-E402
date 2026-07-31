@@ -38,7 +38,6 @@ async def health():
         "aiConfigured": bool(settings.openai_api_key),
         "customOpenAIBaseUrl": bool(settings.openai_base_url),
         "chatModel": settings.chat_model,
-        "routerModel": settings.router_model,
         "embeddingModel": settings.embedding_model,
     }
 
@@ -140,7 +139,12 @@ async def lesson_chat(lesson_id: str, request: ChatRequest):
     if not embeddings_path(lesson_id).exists():
         raise HTTPException(status_code=409, detail="Bài học chưa xử lý embeddings. Hãy gọi reprocess trước.")
     try:
-        return await chat_with_lesson(lesson_id, request.question.strip(), top_k=request.top_k)
+        return await chat_with_lesson(
+            lesson_id,
+            request.question.strip(),
+            mode=request.mode,
+            top_k=request.top_k,
+        )
     except AIConfigurationError as error:
         raise HTTPException(status_code=503, detail=str(error)) from error
     except RuntimeError as error:
@@ -154,7 +158,11 @@ async def library_chat(request: ChatRequest):
     if not settings.openai_api_key:
         raise HTTPException(status_code=503, detail="Backend chưa được cấu hình OPENAI_API_KEY.")
     try:
-        return await chat_with_library(request.question.strip(), top_k=request.top_k)
+        return await chat_with_library(
+            request.question.strip(),
+            mode=request.mode,
+            top_k=request.top_k,
+        )
     except AIConfigurationError as error:
         raise HTTPException(status_code=503, detail=str(error)) from error
     except RuntimeError as error:

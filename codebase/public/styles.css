@@ -193,6 +193,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .conversation-toolbar { display: flex; gap: 8px; padding: 9px 12px; background: #f5faff; border-bottom: 1px solid var(--line); }
 .conversation-toolbar select { min-width: 0; flex: 1; padding: 8px 28px 8px 10px; overflow: hidden; color: var(--green-dark); background: white; border: 1px solid #90caf9; border-radius: 8px; outline: 0; font-size: 10px; font-weight: 700; text-overflow: ellipsis; cursor: pointer; }
 .conversation-toolbar select:focus { box-shadow: 0 0 0 3px rgba(33,150,243,.12); }
+.conversation-toolbar .rag-mode-select { flex: 0 0 82px; }
 .conversation-toolbar button { flex: 0 0 auto; padding: 0 10px; color: white; background: var(--green); border: 0; border-radius: 8px; font-size: 10px; font-weight: 800; cursor: pointer; }
 .conversation-toolbar button:hover { background: var(--green-dark); }
 .conversation-toolbar button span { margin-right: 3px; font-size: 15px; font-weight: 400; vertical-align: -1px; }
@@ -306,6 +307,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .slide-assistant-header strong { margin-top: 2px; font: 700 13px/1.2 "Manrope", sans-serif; }
 .slide-assistant-header > button { margin-left: auto; width: 30px; height: 30px; color: #778079; background: transparent; border: 0; border-radius: 50%; font-size: 17px; cursor: pointer; }
 .slide-assistant-header > button:hover { background: #f0f0e9; }
+.slide-assistant-header .rag-mode-select { margin-left: auto; padding: 7px 24px 7px 8px; color: var(--green-dark); background: #e3f2fd; border: 1px solid #90caf9; border-radius: 7px; outline: 0; font-size: 9px; font-weight: 800; cursor: pointer; }
+.slide-assistant-header .rag-mode-select + button { margin-left: 0; }
 .slide-context-card { display: flex; align-items: center; gap: 8px; margin: 12px; padding: 11px 12px; background: #e3f2fd; border-radius: 9px; }
 .slide-context-card > div { display: flex; min-width: 0; flex: 1; flex-direction: column; }
 .slide-context-card span { color: var(--green); font-size: 9px; font-weight: 800; text-transform: uppercase; }

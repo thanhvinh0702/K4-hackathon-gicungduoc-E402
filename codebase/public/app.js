@@ -8,6 +8,7 @@ const state = {
   activePage: 1,
   conversations: [],
   activeConversationId: null,
+  chatMode: "fast_rag",
   lessonChats: {},
   mindmapScale: 1,
   uploading: false,
@@ -50,9 +51,11 @@ const elements = {
   conversationSelect: document.querySelector("#conversation-select"),
   newConversation: document.querySelector("#new-conversation"),
   deleteConversation: document.querySelector("#delete-conversation"),
+  chatMode: document.querySelector("#chat-mode"),
   slideChatMessages: document.querySelector("#slide-chat-messages"),
   slideChatForm: document.querySelector("#slide-chat-form"),
   slideChatInput: document.querySelector("#slide-chat-input"),
+  slideChatMode: document.querySelector("#slide-chat-mode"),
   slidePageLabel: document.querySelector("#slide-page-label"),
   slideTopic: document.querySelector("#slide-topic"),
 };
@@ -121,6 +124,9 @@ function loadChatHistory() {
     state.activeConversationId = state.conversations.some((item) => item.id === stored.activeConversationId)
       ? stored.activeConversationId
       : state.conversations[0]?.id || null;
+    state.chatMode = ["fast_rag", "agentic_rag"].includes(stored.chatMode)
+      ? stored.chatMode
+      : "fast_rag";
     if (stored.lessons && typeof stored.lessons === "object" && !Array.isArray(stored.lessons)) {
       state.lessonChats = Object.fromEntries(
         Object.entries(stored.lessons).map(([lessonId, messages]) => [lessonId, normalizeChatMessages(messages)]),
@@ -144,6 +150,7 @@ function saveChatHistory() {
     window.localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify({
       version: 2,
       activeConversationId: state.activeConversationId,
+      chatMode: state.chatMode,
       conversations: state.conversations.slice(0, MAX_STORED_CONVERSATIONS).map((conversation) => ({
         ...conversation,
         messages: normalizeChatMessages(conversation.messages),
@@ -519,7 +526,7 @@ async function askLessonChatbot(question) {
     const response = await fetch(`/api/lessons/${encodeURIComponent(state.activeId)}/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question: value }),
+      body: JSON.stringify({ question: value, mode: state.chatMode }),
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.detail || "Không thể hỏi trợ lý lúc này.");
@@ -640,7 +647,7 @@ async function askChatbot(question) {
     const response = await fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question: value }),
+      body: JSON.stringify({ question: value, mode: state.chatMode }),
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.detail || "Không thể hỏi trợ lý lúc này.");
@@ -697,6 +704,8 @@ async function loadLessons() {
     if (!getActiveConversation()) createConversation(false);
     renderConversationSelect();
     renderChat();
+    elements.chatMode.value = state.chatMode;
+    elements.slideChatMode.value = state.chatMode;
     scheduleProcessingPoll();
   } catch {
     elements.list.innerHTML = '<p class="no-results">Không thể tải thư viện.</p>';
@@ -767,6 +776,14 @@ document.querySelector("#suggestion-list").addEventListener("click", (event) => 
 elements.newConversation.addEventListener("click", () => createConversation());
 elements.deleteConversation.addEventListener("click", deleteConversation);
 elements.conversationSelect.addEventListener("change", (event) => selectConversation(event.target.value));
+[elements.chatMode, elements.slideChatMode].forEach((select) => {
+  select.addEventListener("change", (event) => {
+    state.chatMode = event.target.value;
+    elements.chatMode.value = state.chatMode;
+    elements.slideChatMode.value = state.chatMode;
+    saveChatHistory();
+  });
+});
 elements.chatMessages.addEventListener("click", (event) => {
   const link = event.target.closest(".slide-link");
   if (link) selectLesson(link.dataset.lesson, link.dataset.page);
